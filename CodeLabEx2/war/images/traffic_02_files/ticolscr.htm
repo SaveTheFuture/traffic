@@ -1,0 +1,47 @@
+
+<!-- saved from url=(0039)http://cdn.interclick.com/ticolscr.aspx -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title></title><style type="text/css">body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;}</style></head><body><script type="text/javascript">
+function readCookie(name) {
+    var nameEQ = name + '=';
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return "";
+}
+
+function readQS(name) {
+    var nameEQ = name + '=';
+    var qs = location.search.substring(1, location.search.length);
+    var ca = qs.split('&');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) == 0) return '&' + c;
+    }
+    return "";
+}
+</script><script type="text/javascript">function TargusCallback(score, zip, age, gender, timestamp) {
+try {
+var scstr = "";
+var delta = 2592000000;
+if (score == 0) {
+  delta = 604800000;
+} else {
+  scstr = '&r='+score;
+}
+var dt = new Date();
+var now = dt.getTime();
+var expr = now + delta;
+var url = 'http://cdn.interclick.com/RSltPrc.aspx?i=100' + scstr + '&e=' + expr + readQS('l');
+document.write('<iframe src="'+url+'"></iframe>');
+} catch(err) {}
+};
+  document.write('<scr'+'ipt language="javascript" src="http://adadvisor.net/adscores/g.js?sid=9212076087"></scr'+'ipt>');
+</script><script language="javascript" src="g.js"></script><iframe src="RSltPrc.htm"></iframe></body></html>

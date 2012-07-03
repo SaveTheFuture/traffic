@@ -1,0 +1,631 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Google App Engine: Code Lab 2</title>
+ 
+
+  <link href="http://www.gstatic.com/codesite/ph/17444577587916266307/css/ph_core.css" rel="stylesheet" type="text/css" />
+  <link href="http://code.google.com/css/codesite.pack.04102009.css" rel="stylesheet" type="text/css" />
+  <link type="text/css" rel="stylesheet" href="Blog.css">
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dijit/themes/claro/claro.css" media="screen">
+  
+  <script language="javascript" src='script/jquery-1.6.min.js'></script>
+  <script language="javascript" src='script/ajax.util.js'></script>
+  <script src="//connect.facebook.net/en_US/all.js"></script>
+  	<link rel="stylesheet" href="Blog.css" media="screen">
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dijit/themes/claro/claro.css" media="screen">
+	<!-- load dojo and provide config via data attribute -->
+	<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js"
+			data-dojo-config="async:true, parseOnLoad: true">
+	</script>
+	<script>
+		require(["dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dojo/parser"]);
+	</script>
+	
+	
+
+
+</head>
+<body class="claro">
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '400798689964910', // App ID
+      channelUrl : 'http://localhost:8888/channel.html', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+FB.Event.subscribe('auth.login', function(response) {
+   if (response.authResponse) {
+     FB.api('/me', function(response) {  
+         name = response.name;
+         email = response.email;
+         userIsConnected = 1;
+         userId= response.id;
+         provider = "facebook";
+         setUserDetails(userId,provider,name,email);
+         checkUserLoggedInStatus();
+         getUserDetails();
+         addUserLogin();
+        $('#' + "fb-logout").show();
+		$('#' + "fb-login-button").hide();
+     });
+   } else {
+     //alert('User cancelled login or did not fully authorize.');
+   }
+},{scope: 'email,name,publish_actions'});
+
+FB.Event.subscribe('auth.logout', function(response) {
+  //alert('auth.logout event handler', response);
+  resetUser();
+});
+FB.Event.subscribe('auth.statusChange', function(response) {
+  //alert('auth.statusChange event handler', response);
+});
+FB.Event.subscribe('auth.authResponseChange', function(response) {
+  //alert('auth.authResponseChange event handler', response);
+});
+    // Additional initialization code here
+};
+
+  // Load the SDK Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+
+
+</script>
+   
+  <!-- content -->  
+  <div  id="gc-pagecontent" >
+  <h1 class="page_title">HallOfShame</h1>
+  
+ <!-- tabs --> 
+ 
+ <div id="tabs" class="gtb">
+      <a id="home" href="#home" class="tab">Home</a>
+      <a id="vehiclePost" href="#vehiclePost" class="tab">Vehicle Post</a> 
+	  <a id="user" href="#user" class="tab">User</a> 
+	  <div class="gtbc"></div>
+  </div>
+  
+  <div class="fb-login-button" id ="fb-login-button" >Login with Facebook</div>  
+  <button id="fb-logout">logout()</button>
+  
+  <!-- home page content -->
+  <div class="g-unit" id="home-tab">
+    <div class ="message" id="home-show-message" ></div>
+  
+         <iframe src="https://www.facebook.com/plugins/like.php?href=http://localhost:8888"
+        scrolling="no" frameborder="0"
+        style="border:none; width:450px; height:80px"></iframe>
+ 
+      
+  <h2>Create Flow Chart</h2>
+    <p>
+      <div align="left">
+        <img src="images/codeLab2Create.png" />
+      </div>    
+        <ol>
+          <li>Vehicle/Item servlet will be invoked on <b>Save</b>
+            click from UI</li>
+          <li>doPut() method of respective servlet will
+            invoke <b>datastore API</b> to persist the data
+            into datastore</li>
+          <li>Also, the same data copy is pushed into
+            memcache store.</li>
+        </ol>
+      </p>
+      
+    <h2>List Flow Chart</h2>
+     <p>
+      <div align="left">
+        <img src="images/codeLab2List.png" />
+      </div>
+     
+        <ol>
+          <li>On UI tab selection, doGet() of the
+            respective servlet gets called</li>
+          <li>Call to memcache store (using memcache API)
+            is made to check whether the entity requested is
+            available in memcache store.</li>
+          <li>If the data is not present in cache store
+            then, call will be forwarded to datastore.</li>
+          <li>JSON objects are returned to the UI and
+            custom JSON converter will parse the JSON
+            objects</li>
+        </ol>
+      </p>
+  </div>
+
+  
+  <!-- ******************************************* user ******************************************* -->
+  <div class="g-unit" id="user-tab">
+  <div class ="message" id="user-show-message" >
+  </div>
+
+  
+  <button id="fb-post">Post to Facebook</button>
+  <!-- search container -->
+   	<div class="gsc-search-box" id="user-search-ctr">
+   	<!-- section title -->
+   	</div>
+   <!-- list container -->
+   	<div class="results" style="border:0;" id="user-list-ctr">
+          <table width="100%" cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Name</th>
+                <th scope="col">provider</th>
+                <th scope="col">Action</th>                      
+              </tr>
+            </thead>
+            <tbody id="user-list-tbody"></tbody>
+          </table>
+  	</div>
+  	<div class="create-ctr" id="user-create-ctr">
+	  	<h2>Update User</h2>
+	  	<form name="user-create-form" id="user-create-form">
+  			<table width="200" cellspacing="0" cellpadding="0">
+	  		   <tbody>
+	              <tr>
+	                 <td>Email</td>
+	                 <td><span class="readonly"><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="eMail" id="eMail" /></span>
+	                 </td>
+	               </tr>
+	               <tr>
+          			  <td>&nbsp;</td>
+          			  <td> 
+          				<input type="button" class="save" title="Save" value="Save" onclick="formValidate('user')" />
+          				<input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('user')" />
+          				<input type="reset" id="user-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+         			  </td>
+        			</tr>
+	  			  </tbody>
+		        </table>
+		    </form>
+		</div>
+  </div>
+  
+  
+  
+  
+  
+  <!-- ******************************************* vehiclePost ******************************************* -->
+  <div class="g-unit" id="vehiclePost-tab">
+  <div class ="message" id="vehiclePost-show-message" style="display:none">
+  </div>
+  <!-- search container -->
+   	<div class="gsc-search-box" id="vehiclePost-search-ctr">
+   	<!-- section title -->
+   	<h2>Vehicle Posts</h2>
+   	<form name="vehiclePost-search-form" id="vehiclePost-search-form">
+   	<label>Search Posts</label>
+   	 		<input type="text" name="q" id="q" class="gsc-input"/> 
+	   	    <input type="button" value="Search" onclick="search('vehiclePost')" class="gsc-search-button" />
+            <input type="button" value="Add" onclick="add('vehiclePost')" class="gsc-search-button" />
+            <input type="reset" id="vehiclePost-search-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+    </form>
+   	</div>
+   <!-- list container -->
+   	<div class="results" style="border:0;" id="vehiclePost-list-ctr">
+          <table width="50%" cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse;">
+            <thead>
+              <tr>
+              <th scope="col">Company</th>
+              <th scope="col">Leased Company</th>
+                <th scope="col">vehicleRegNumber</th>
+                <th scope="col">VehicleDetails</th>
+                <th scope="col">errorDetails</th>
+                <th scope="col">State</th>
+                <th scope="col">district</th>                      
+                <th scope="col">location</th>
+              </tr>
+            </thead>
+            <tbody id="vehiclePost-list-tbody"></tbody>
+          </table>
+          
+          <div id="vehiclePostDetail" >
+			<h1> Hello Sachin </h1>
+          </div>
+  	</div>
+  	
+  	<div class="create-ctr" id="vehiclePost-create-ctr">
+	  	<h2>Create User</h2>
+	  	<form name="vehiclePost-create-form" id="vehiclePost-create-form">
+  			<table width="200" cellspacing="0" cellpadding="0">
+	  		   <tbody>
+	  		   	  <tr>
+             		<td>Company</td>
+             		<td><select id="company-list-vehicle-post" name="companyListVehiclePost"></select></td>
+           		  </tr>
+           		  <tr>
+	                 <td>CompanyName</td>
+	                 <td><span class="readonly"><input type="text" style="width: 185px;" autocomplete="on" class="gsc-input" maxlength="2048" name="companyName" id="companyName" /></span></td>
+	               </tr>
+           		  <tr>
+	                 <td>Leased to CompanyName</td>
+	                 <td><span class="readonly"><input type="text" style="width: 185px;" autocomplete="on" class="gsc-input" maxlength="2048" name="leasedToCompany" id="leasedToCompany" /></span></td>
+	               </tr>
+	              <tr>
+	                 <td>vehicleRegNumber</td>
+	                 <td><span class="readonly"><input type="text" style="width: 185px;" autocomplete="on" class="gsc-input" maxlength="2048" name="vehicleRegNumber" id="vehicleRegNumber" /></span></td>
+	               </tr>
+	                <tr>
+	                  <td>VehicleDetails</td>
+	                  <td><input type="text" style="width: 185px;" autocomplete="on" class="gsc-input" maxlength="2048" name="vehicleDetails" id="vehicleDetails" /></td>
+	                </tr>
+	                <tr>
+	                  <td>errorDetails</td>
+	                  <td><input type="text" style="width: 185px;" autocomplete="on" class="gsc-input" maxlength="2048" name="errorDetails" id="errorDetails" /></td>
+	                </tr>
+	  		   	  <tr>
+             		<td>State</td>
+             		<td><select id="state-list-vehicle-post" name="stateListVehiclePost"></select></td>
+           		  </tr>
+		            <tr>
+	                  <td>State</td>
+	                  <td><input type="text" style="width: 185px;" autocomplete="on" class="gsc-input" maxlength="2048" name="state" id="state" /></td>
+	  		   	  <tr>
+             		<td>District</td>
+             		<td><select id="district-list-vehicle-post" name="districtListVehiclePost"></select></td>
+           		  </tr>
+	                </tr>
+	                <tr>
+	                  <td>district</td>
+	                  <td><input type="text" style="width: 185px;" autocomplete="on" class="gsc-input" maxlength="2048" name="district" id="district" /></td>
+	                </tr>
+	                <tr>
+	                  <td>location</td>
+	                  <td><input type="text" style="width: 185px;" autocomplete="on" class="gsc-input" maxlength="2048" name="location" id="location" /></td>
+	                </tr>
+	                
+	                <tr>
+	                  <td><input type="text" style="width: 0px; visibility:hidden; " autocomplete="on" class="gsc-input" maxlength="2048" name="name" id="name" /></td>
+	                </tr>
+	                
+		            <tr>
+          			  <td>&nbsp;</td>
+          			  <td> 
+          				<input type="button" class="save" title="Save" value="Save" onclick="formValidate('vehiclePost')" />
+          				<input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('vehiclePost')" />
+          				<input type="reset" id="vehiclePost-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+         			  </td>
+        			</tr>
+	  			  </tbody>
+		        </table>
+		    </form>
+		</div>
+  </div>
+  
+  
+  
+  <!-- ******************************************* userVehicleSubscription ******************************************* -->
+  <div class="g-unit" id="userVehicleSubscription-tab">
+  <div class ="message" id="user-show-message" style="display:none">
+  </div>
+  <!-- search container -->
+   	<div class="gsc-search-box" id="userVehicleSubscription-search-ctr">
+   	<!-- section title -->
+   	<h2>Vehicle Registration</h2>
+   	<form name="userVehicleSubscription-search-form" id="userVehicleSubscription-search-form">
+   	<label>Registration Number</label>
+   	 		<input type="text" name="q" id="q" class="gsc-input"/> 
+	   	    <input type="button" value="Search" onclick="search('userVehicleSubscription')" class="gsc-search-button" />
+            <input type="button" value="Add" onclick="add('userVehicleSubscription')" class="gsc-search-button" />
+            <input type="reset" id="userVehicleSubscription-search-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+    </form>
+   	</div>
+   <!-- list container -->
+   	<div class="results" style="border:0;" id="userVehicleSubscription-list-ctr">
+          <table width="100%" cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th scope="col">Vehicle Registration NUmber</th>
+                <th scope="col">Action</th>                      
+              </tr>
+            </thead>
+            <tbody id="userVehicleSubscription-list-tbody"></tbody>
+          </table>
+  	</div>
+  	<div class="create-ctr" id="userVehicleSubscription-create-ctr">
+	  	<h2>Create userVehicleSubscription</h2>
+	  	<form name="userVehicleSubscription-create-form" id="userVehicleSubscription-create-form">
+  			<table width="200" cellspacing="0" cellpadding="0">
+	  		   <tbody>
+	                <tr>
+	                  <td>Vehicle Registration NUmber</td>
+	                  <td><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="vehicleRegNumber" id="vehicleRegNumber" /></td>
+	                </tr>
+		            <tr>
+          			  <td>&nbsp;</td>
+          			  <td> 
+          				<input type="button" class="save" title="Save" value="Save" onclick="formValidate('userVehicleSubscription')" />
+          				<input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('userVehicleSubscription')" />
+          				<input type="reset" id="userVehicleSubscription-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+         			  </td>
+        			</tr>
+	  			  </tbody>
+		        </table>
+		    </form>
+		</div>
+  </div>
+  
+  
+  <!-- ******************************************* userCompanySubscription ******************************************* -->
+  <div class="g-unit" id="userCompanySubscription-tab">
+  <div class ="message" id="user-show-message" style="display:none">
+  </div>
+  <!-- search container -->
+   	<div class="gsc-search-box" id="userCompanySubscription-search-ctr">
+   	<!-- section title -->
+   	<h2>Company Subscription</h2>
+   	<form name="userCompanySubscription-search-form" id="userCompanySubscription-search-form">
+   	<label>Company Name</label>
+   	 		<input type="text" name="q" id="q" class="gsc-input"/> 
+	   	    <input type="button" value="Search" onclick="search('userCompanySubscription')" class="gsc-search-button" />
+            <input type="button" value="Add" onclick="add('userCompanySubscription')" class="gsc-search-button" />
+            <input type="reset" id="userCompanySubscription-search-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+    </form>
+   	</div>
+   <!-- list container -->
+   	<div class="results" style="border:0;" id="userCompanySubscription-list-ctr">
+          <table width="100%" cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th scope="col">Company Name</th>
+                <th scope="col">Action</th>                      
+              </tr>
+            </thead>
+            <tbody id="userCompanySubscription-list-tbody"></tbody>
+          </table>
+  	</div>
+  	<div class="create-ctr" id="userCompanySubscription-create-ctr">
+	  	<h2>Create userCompanySubscription</h2>
+	  	<form name="userCompanySubscription-create-form" id="userCompanySubscription-create-form">
+  			<table width="200" cellspacing="0" cellpadding="0">
+	  		   <tbody>
+	               <tr>
+	                  <td>Company Name</td>
+	                  <td><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="companyName" id="companyName" /></td>
+	                </tr>
+		            <tr>
+          			  <td>&nbsp;</td>
+          			  <td>
+          				<input type="button" class="save" title="Save" value="Save" onclick="formValidate('userCompanySubscription')" />
+          				<input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('userCompanySubscription')" />
+          				<input type="reset" id="userCompanySubscription-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+         			  </td>
+        			</tr>
+	  			  </tbody>
+		        </table>
+		    </form>
+		</div>
+  </div>
+  
+  
+   <!-- ******************************************* vehicle ******************************************* -->
+  <div class="g-unit" id="vehicle-tab">
+    <div class ="message" id="vehicle-show-message" style="display:none">
+  </div>
+   <!-- search container -->
+   	<div class="gsc-search-box" id="vehicle-search-ctr">
+   	<!-- section title -->
+   	<h2>All Vehicles</h2>
+   	<form name="vehicle-search-form" id="vehicle-search-form">
+	   	 <label>Registration Number</label>
+	   	 <input type="text" name="q" id="q" class="gsc-input"/> 
+	     <input type="button" value="Search" onclick="search('vehicle')" class="gsc-search-button" />
+	     <input type="button" value="Add" onclick="add('vehicle')" class="gsc-search-button" />
+	     <input type="reset" id="vehicle-search-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+    </form>
+   	</div>
+   <!-- list container -->
+   	<div class="results" style="border:0;" id="vehicle-list-ctr">
+          <table width="100%" cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th scope="col">Registration Number</th>
+                <th scope="col">Action</th>            
+              </tr>
+            </thead>
+            <tbody id="vehicle-list-tbody"></tbody>
+          </table>
+  	</div>
+  
+  	<!-- create container -->
+	  	<div class="create-ctr" id="vehicle-create-ctr">
+	  	<h2>Create Vehicle</h2>
+	  	<form name="vehicle-create-form" id="vehicle-create-form">
+	  	<table width="200" cellspacing="0" cellpadding="0">
+	  	<tbody>
+	  	<tr >
+		 <td>Registration Number </td>
+          <td><span class="readonly"><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="name" id="name" /></span></td>
+		 </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td> 
+          <input type="button" class="save" title="Save" value="Save" onclick="formValidate('vehicle')" />
+          <input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('vehicle')" />
+          <input type="reset" id="vehicle-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+         </td>
+        </tr>
+	  	</tbody>
+  </table>
+  </form>
+  </div>
+  
+  </div>
+   <!-- ******************************************* item ******************************************* -->
+  <div class="message" id="item-show-message" style="display:none">
+  </div>
+  <div class="g-unit" id="item-tab">
+	   <!-- search container -->
+	   	<div class="gsc-search-box" id="item-search-ctr">
+	   	<!-- section title -->
+	   	<h2>All Items</h2>
+	   	<form name="item-search-form" id="item-search-form">
+	   	   <input type="text" name="q" id="q" class="gsc-input"/> 
+	   	   <select id="by" name="item-searchby" class="gsc-input">
+              <option value="name">Item</option>
+              <option value="vehicle">Vehicle</option>
+            </select> 
+            <input type="button" value="Search" onclick="search('item')" class="gsc-search-button" />
+            <input type="button" value="Add" onclick="add('item')" class="gsc-search-button" />
+            <input type="reset" id="item-search-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+          </form>  
+	   	</div>
+	   <!-- list container -->
+	   	<div class="results" style="border:0;" id="item-list-ctr">
+           <table width="100%" cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse;">
+             <thead>
+               <tr>
+                 <th scope="col">Item Name</th>
+                 <th scope="col">Selling Price</th>
+                 <th scope="col">Vehicle</th>
+                 <th scope="col">Action</th>                      
+               </tr>
+             </thead>
+             <tbody id="item-list-tbody"></tbody>
+           </table>
+	  	</div>
+	  	<!-- create container -->
+	  	<div class="create-ctr" id="item-create-ctr">
+	  	<h2>Create Item</h2>
+	  	<form name="item-create-form" id="item-create-form">
+	  	<table width="200" cellspacing="0" cellpadding="0">
+           <tr> 
+           	 <td>Item Name</td>
+             <td ><span class="readonly"><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="name" id="name" /></span></td>
+           </tr>
+           <tr>
+             <td>Selling Price</td>
+             <td><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="price" id="price" /></td>
+           </tr>
+           <tr>
+             <td>Vehicle</td>
+             <td><select id="item-vehicle-list" name="vehicle"></select></td>
+           </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td> 
+                  <input type="button" class="save" title="Save" value="Save" onclick="formValidate('item')" />
+                  <input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('item')" />
+                  <input type="reset" id="item-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+              </td>
+            </tr>
+			 </table>
+			 </form>
+	  	</div>
+	  	<!-- create conatiner ends here -->
+  </div>
+   <!-- ******************************************* order ******************************************* -->
+  <div class="g-unit" id="order-tab">
+  <div class="message" id="order-show-message" style="display:none">
+  </div>
+	   <!-- search container -->
+	   	<div class="gsc-search-box" id="order-search-ctr">
+	   <!-- section title -->
+	   	<h2>All Orders</h2>
+	   	<form name="order-search-form" id="order-search-form">
+	   	<label>User Name</label>
+	   	   <input type="text" name="q" id="q" class="gsc-input"/> 
+            <input type="button" value="Search" onclick="search('order')" class="gsc-search-button" />
+            <input type="button" value="Add" onclick="add('order')" class="gsc-search-button" />
+            <input type="reset" id="order-search-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+          </form>
+	   </div>
+	   <!-- list container -->
+	   	<div class="results" style="border:0;" id="order-list-ctr" >
+           <table width="100%" cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse;">
+             <thead>
+               <tr>
+                 <th scope="col">Order Id</th>
+                 <th scope="col">Item Name</th>
+                 <th scope="col">User</th>
+                 <th scope="col">Ship To</th>
+			  	<th scope="col">Quantity</th>
+			  	<th scope="col">Price</th>
+                <th scope="col">Action</th>             
+               </tr>
+             </thead>
+             <tbody id="order-list-tbody"></tbody>
+           </table>
+	  	</div>
+	  	<!-- create container -->
+	  	<div class="create-ctr" id="order-create-ctr">
+	  	<h2>Create Order</h2>
+	  	<form name="order-create-form" id="order-create-form">
+	  	<table width="200" cellspacing="0" cellpadding="0">
+           <tr>
+             <td>User</td>
+             <td><select id="order-user-list" name="userName"></select></td>
+           </tr>
+           <tr> 
+           	 <td>Ship To</td>
+           	 </tr>
+           	 <tr>
+           	 <td>Address</td>
+             <td><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="shipto" id="shipto" /></td>
+           </tr>
+           <tr> 
+           	 <td>City</td>
+             <td ><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="city" id="city" /></td>
+           </tr>
+           <tr> 
+           	 <td>State</td>
+             <td ><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="state" id="state" /></td>
+           </tr>
+           <tr> 
+           	 <td>Zip</td>
+             <td ><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="zip" id="zip" /></td>
+           </tr>
+         </table>
+         <table width="200" cellspacing="0" cellpadding="0">
+           <tr>
+              <td>Item</td>
+              <td><select id="order-item-list" name="itemName"></select></td>
+            </tr>
+           <tr>
+             <td>Quantity</td>
+             <td><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="quantity" id="quantity" /></td>
+           </tr>
+           <tr>
+             <td>Selling Price</td>
+             <td><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="price" id="price" /></td>
+           </tr>
+           
+            
+            <tr>
+              <td>&nbsp;</td>
+              <td> 
+                  <input type="button" class="save" title="Save" value="Save" onclick="formValidate('order')" />
+                  <input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('order')" />
+                  <input type="reset" id="order-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
+              </td>
+            </tr>
+			 </table>
+			 </form>
+			 </div>
+  </div>
+ </div>
+  
+<script type="text/javascript">
+
+ $(window).load(function () {
+   init();
+});
+
+</script>
+</body>
+</html>

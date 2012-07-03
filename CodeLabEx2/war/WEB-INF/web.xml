@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+
+	<servlet>
+		<servlet-name>UserServlet</servlet-name>
+		<servlet-class>com.google.appengine.codelab.UserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserServlet</servlet-name>
+		<url-pattern>/user</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UserVehicleSubscriptionServlet</servlet-name>
+		<servlet-class>com.google.appengine.codelab.UserVehicleSubscriptionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserVehicleSubscriptionServlet</servlet-name>
+		<url-pattern>/userVehicleSubscription</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>VehicleServlet</servlet-name>
+		<servlet-class>com.google.appengine.codelab.VehicleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VehicleServlet</servlet-name>
+		<url-pattern>/vehicle</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CompanyServlet</servlet-name>
+		<servlet-class>com.google.appengine.codelab.CompanyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CompanyServlet</servlet-name>
+		<url-pattern>/company</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DistrictServlet</servlet-name>
+		<servlet-class>com.google.appengine.codelab.DistrictServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DistrictServlet</servlet-name>
+		<url-pattern>/district</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>StateServlet</servlet-name>
+		<servlet-class>com.google.appengine.codelab.StateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StateServlet</servlet-name>
+		<url-pattern>/state</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UserCompanySubscriptionServlet</servlet-name>
+		<servlet-class>com.google.appengine.codelab.UserCompanySubscriptionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserCompanySubscriptionServlet</servlet-name>
+		<url-pattern>/userCompanySubscription</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>VehiclePostServlet</servlet-name>
+		<servlet-class>com.google.appengine.codelab.VehiclePostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VehiclePostServlet</servlet-name>
+		<url-pattern>/vehiclePost</url-pattern>
+	</servlet-mapping>	
+		
+	<servlet>
+		<servlet-name>GlobalSubscriptionIdServlet</servlet-name>
+		<servlet-class>com.google.appengine.codelab.GlobalSubscriptionIdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GlobalSubscriptionIdServlet</servlet-name>
+		<url-pattern>/globalSubscriptionId</url-pattern>
+	</servlet-mapping>	
+	
+		
+	<servlet>
+		<servlet-name>CompanyGlobalSubscriptionIdServlet</servlet-name>
+		<servlet-class>com.google.appengine.codelab.CompanyGlobalSubscriptionIdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CompanyGlobalSubscriptionIdServlet</servlet-name>
+		<url-pattern>/companyGlobalSubscriptionId</url-pattern>
+	</servlet-mapping>	
+
+		
+	<servlet>
+		<servlet-name>StickerNameServlet</servlet-name>
+		<servlet-class>com.google.appengine.codelab.StickerNameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StickerNameServlet</servlet-name>
+		<url-pattern>/stickerName</url-pattern>
+	</servlet-mapping>	
+	
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
