@@ -1,3 +1,4 @@
+// Author Sachin Gupta
 var HOME='home';
 var ENTITY_USER='user';
 var ENTITY_PRODUCT='vehicle';
