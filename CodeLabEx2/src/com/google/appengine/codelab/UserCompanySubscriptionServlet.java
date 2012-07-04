@@ -77,7 +77,12 @@ public class UserCompanySubscriptionServlet extends BaseServlet {
 			throws ServletException, IOException {
     logger.log(Level.INFO, "Deleting Company Subscription from the listing");
     String id = req.getParameter("name");
-    UserCompanySubscription.deleteSingleCompanySubscription(id);
+    String userId = req.getParameter("userId");
+
+    int ret = UserCompanySubscription.deleteSingleCompanySubscription(id,userId);
+    if (0 == ret) {
+    	resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+    }
   }
 
 	/**

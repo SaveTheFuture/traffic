@@ -91,10 +91,10 @@ public class Company {
      	Entity company = Util.findEntity(companyKey);
      	CompanyGlobalSubscriptionId.deleteAllIdsForCompany(companyKey.getName());
      	StickerName.deleteStickerName(company.getProperty("stickerName").toString());
-     	UserCompanySubscription.deleteSingleCompanySubscription(company.getProperty("origUserId").toString()+companyKey.getName());
+     	UserCompanySubscription.deleteSingleCompanySubscription(company.getProperty("origUserId").toString()+companyKey.getName(),
+     			company.getProperty("origUserId").toString());
 	    Util.deleteEntity(companyKey);
 	}
-  
 
   public static String writeJSON(Iterable<Entity> entities) {
 	    StringBuilder sb = new StringBuilder();

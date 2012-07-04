@@ -59,18 +59,18 @@ var init = function(dom1,style1,cityStore,companyStore,vehicleStore,stickerStore
 	document.getElementById('fb-logout').onclick = function() {
 		fbLogout();
 	};
-	/*
+
 	document.getElementById('fb-post').onclick = function() {
 		fbPost();
 	};
-	*/	
+	
 	//$('#' + 'vehiclePost-show-ctr').hide();
 	//vehiclePostStore = new dojox.data.JsonRestStore({target:"/vehiclePost"});
 	//populateList(ENTITY_VEHICLE,null);
 	//populateList(ENTITY_COMPANY,null);
 	//populateList(ENTITY_CITY,null);
 	//populateList(ENTITY_ID,null);
-    $('#' + "fb-post").hide();
+    //$('#' + "fb-post").hide();
 	$('#addPost').hide();
 	style.set(dom.byId('loader'),"display","none");
 }
@@ -92,7 +92,7 @@ var createGrid = function () {
 var fbInit = function() {
     $('#' + "fb-logout").hide();
 	$('#' + "fb-login-button").show();
-    $('#' + "fb-post").hide();
+    //$('#' + "fb-post").hide();
 	
     FB.init({
         appId      : 161629197295331, // App ID
@@ -199,6 +199,7 @@ var showTab = function(entity) {
 		$('#'+entity+'-search-reset').click();
 	
 	if (entity == ENTITY_VEHICLE_POST){
+		//showTab(ENTITY_ADD_POST);
 		//style.set(dom.byId('leftCol'),"display","inline");
 		//$('#' + 'vehiclePost-show-ctr').show();
 	}
@@ -250,7 +251,7 @@ var resetUser = function() {
 	//$('#' + ENTITY_USER_COMPANY_SUBSCRIPTION + '-tab').hide();
 	$('#' + "fb-login-button").show();
 	$('#' + "fb-logout").hide();
-	$('#' + "fb-post").hide();
+	//$('#' + "fb-post").hide();
 }
 
 var checkUserLoggedInStatus = function() {
@@ -348,7 +349,7 @@ var addUserLogin = function() {
 	}
 	else {
 		$('#' + "fb-logout").hide();
-		$('#' + "fb-post").hide();
+		//$('#' + "fb-post").hide();
 		$('#' + "fb-login-button").show();
 	}
 }
@@ -410,7 +411,6 @@ var param=function(name,value){
 //function to add an entity when user clicks on the add button in UI
 var add = function(entity) {
 	$('#' + "error-show-message").hide();
-
    $('#' + 'vehiclePost-show-ctr').hide();
 
 	if(0 == userIsConnected) {
@@ -430,8 +430,8 @@ var add = function(entity) {
 	$("select[id$=company-list-vehicle-post] > option").remove();
 
 	if(ENTITY_ADD_POST == entity){
+		alert("shwoing");
 		$('#vehiclePost-create-ctr').show();
-		
 	}
 
 }
@@ -525,16 +525,14 @@ var save = function(entity) {
 	 for(var i=0;i<formEleList.length;i++){
 		data[data.length]=new param(formEleList[i].name,formEleList[i].value);
 	 }
-	if(entity == ENTITY_COMPANY) {
-		 data[i++] = new param("userId",userId+provider);
-	}
-	
+
 	 if(entity == ENTITY_USER) {
 		 data[i++] = new param("id",userId);
 		 data[i++] = new param ("provider",provider);
 	 }
 	 if((entity == ENTITY_USER_VEHICLE_SUBSCRIPTION ) || 
-		 (entity == ENTITY_USER_COMPANY_SUBSCRIPTION)) {
+		 (entity == ENTITY_USER_COMPANY_SUBSCRIPTION) ||
+		 (entity == ENTITY_COMPANY)) {
 		 data[i++] = new param("userId",userId+provider);
 	 }
 	 if(entity == ENTITY_VEHICLE_POST) {
@@ -629,6 +627,13 @@ var deleteEntity = function(entity,id,parentid) {
 	parameter[parameter.length]=new param('name',id);
 	parameter[parameter.length]=new param('parentid', parentid);
 	parameter[parameter.length]=new param('action','DELETE');
+	
+	if((entity == ENTITY_USER_VEHICLE_SUBSCRIPTION ) || 
+		(entity == ENTITY_USER_COMPANY_SUBSCRIPTION) ||
+		(entity == ENTITY_COMPANY)) {
+		parameter[parameter.length] = new param("userId",userId+provider);
+	 }
+
 	//making the ajax call
 	$.ajax({
 			url : "/"+entity,
@@ -642,7 +647,7 @@ var deleteEntity = function(entity,id,parentid) {
 				}
 			},
 			error : function(resp){
-				showMessage(resp, entity);
+				showErrMessage("Operation Not Supported");
 			}
 	});
 }
@@ -704,6 +709,18 @@ var populateSelectBox = function(id, url) {
 	getData(url,null,successFn,null);
 }
 
+var createMessage = function(data) {
+	  var mailBody = "";
+	  mailBody += "<tr>";
+	  mailBody += "<td><label> Company Name : " + data.companyName + "</label></td>";
+	  mailBody += "<td> <label> Posted By " + data.userName+ " </label> " ;
+	  mailBody += " <img src=" + data.userImg + "></img> </td>";
+	  mailBody += "<td> <label>" + data.errorDetails + "</label></td>";
+	  mailBody += "</tr>";
+	  //<button id="fb-logout">logout()</button>
+	  return mailBody;
+}
+
 var displayBody = function(resp, success) {
 	$('#' + "error-show-message").hide();
 
@@ -714,25 +731,32 @@ var displayBody = function(resp, success) {
 		}
 		//creating the html content
 		if(data.length > 0){
-			dom.byId("d-vehicleRegNumber").innerHTML = data[0].vehicleRegNumber;
-			dom.byId("d-companyName").innerHTML = data[0].companyName;
-			dom.byId("d-leasedToCompany").innerHTML = data[0].leasedToCompany;
-			dom.byId("d-vehicleDetails").innerHTML = data[0].VehicleDetails;
+			style.set(dom.byId('vehiclePost-show-ctr'),"display","inline");
+			/*
+			var msg = createMessage(data[0]);
+			dom.byId('vehiclePost-show-ctr').innerHTML  = msg;
+			*/
+			
+			dom.byId("vehiclePost-show-ctr-userName").innerHTML = "<label><u> Posted By </u> :  " + data[0].userName+ " </label>" + "<img src=" + data[0].userImg + "></img>";
+			dom.byId("vehiclePost-show-ctr-companyName").innerHTML = "<u>Company Name </u> : <b>" + data[0].companyName + " </b>";
+			dom.byId("vehiclePost-show-ctr-errorDate").innerHTML = "<u>Date of Incident</u> : <b>" + data[0].date + "</b>";
+			dom.byId("vehiclePost-show-ctr-errorDetails").innerHTML = data[0].errorDetails;
+			/*
 			dom.byId("d-errorDetails").innerHTML = data[0].errorDetails;
 			dom.byId("d-state").innerHTML = data[0].state;
 			dom.byId("d-district").innerHTML = data[0].district;
 			dom.byId("d-location").innerHTML = data[0].location;
-		
+			*/
 			fbName = data[0].vehicleRegNumber;
 			fbCaption = data[0].companyName;
 			fbDescription = data[0].errorDetails;
+			
 		}
-		style.set(dom.byId('vehiclePost-show-ctr'),"display","inline");
-
 		//$('#' + 'vehiclePost-show-ctr').show();
 	} else {
-		var html = "<b> Sorry, We are Unable to Retrieve the data. Please Try Again </b>"
+		var html = "<b> Sorry, We are Unable to Retrieve the data. Please Try Again </b>";
 		$('#' + 'vehiclePost-show-ctr').html(html);
+		showErrMessage(html);
 	}
 }
 
@@ -753,7 +777,7 @@ var getBody=function(id){
       		  	displayBody(resp,1);
       	  },
       	  error: function(resp){
-      		  alert("error : "+resp);
+      		  displayBody(resp,0);
       	  }
     });
 }
@@ -767,8 +791,8 @@ var searchBody=function(offset,company,vehicle){
 	 var vehicleRegNumber = "";
 
 	var companyName = dijit.byId('companyName2').attr('displayedValue');
-	if((companyMemoryStore.query({name:companyName}) == "")) {
-	    return;
+	if((companyName != "") && ((companyMemoryStore.query({name:companyName}) == ""))){
+		return;
 	}
 	 
 	 var formEleList = $('form#'+entity+'-search-form').serializeArray();
@@ -795,7 +819,7 @@ var searchBody=function(offset,company,vehicle){
 	 	filterParam[filterParam.length]=new param('company',"false");
 	}
 	filterParam[filterParam.length]=new param('offset',offset);
-	
+
 	 $.ajax({
       	  url: "/vehiclePost",
       	  type: "GET",
@@ -845,7 +869,7 @@ var fillBody=function(offset){
     });
 }
 
-//function to populate the list of an entity
+//function to pop	ate the list of an entity
 var populateList=function(entity, filter){
 	$('#' + "error-show-message").hide();
 
@@ -963,10 +987,14 @@ var populateMemoryStore=function(entity, filter){
 				switch(entity)
 				{
 				case ENTITY_COMPANY:
-					companyMemoryStore.add({name:data[i].companyName, id:data[i].companyName});
+					if((companyMemoryStore.query({name:data[i].companyName}) == "")) {
+						companyMemoryStore.add({name:data[i].companyName, id:data[i].companyName});
+					}
 					break;
 				case ENTITY_COMPANY_GLOBAL_SUBSCRIPTION_ID:
-					stickerMemoryStore.add({name:data[i].name, id:data[i].name});
+					if((stickerMemoryStore.query({name:data[i].name}) == "")) {
+						stickerMemoryStore.add({name:data[i].name, id:data[i].name});
+					}
 					break;
 				default:
 					break;

@@ -64,7 +64,7 @@ public class VehiclePostServlet extends BaseServlet {
     String isComp = req.getParameter("company");
     String isAll = req.getParameter("all");
     String postId = req.getParameter("postId");
-
+    int endIndex=0;
 
     if(!"0".equals(postId)) {
     	getSingleVehiclePost(req,resp);
@@ -89,14 +89,14 @@ public class VehiclePostServlet extends BaseServlet {
 
 	 if((companyName==null) || "".equals(companyName)) {
 		 isComp = "false";
+		 isAll = "true";
 	 }
 	 if((vehicleRegNumber==null) || "".equals(vehicleRegNumber)) {
 		 isReg = "false";
-	 }		 
+	 }
 	 if("false".equals(isReg) && "false".equals(isComp)) {
 		 isAll = "true";
 	 }
-		 
 	 
     if("true".equals(isReg)) {
     	 query = new Query("VehiclePostAns");
@@ -207,8 +207,13 @@ public class VehiclePostServlet extends BaseServlet {
       }
 */
     	vehiclePost = entity;
+    	endIndex = vehiclePost.getProperty("errorDetails").toString().length();
+    	if(endIndex > 10 ) {
+    		endIndex = 10;
+    	}
       pageContent += "<tr>";
-      pageContent += "<td onclick=\"getBody(" + Util.getPostId(vehiclePost) + ")\"> <img src=" + vehiclePost.getProperty("userImg") + "></img> <b>" + "  " + vehiclePost.getProperty("companyName").toString() +"</td>";   
+      pageContent += "<td onclick=\"getBody(" + Util.getPostId(vehiclePost) + ")\"> <img src=" + vehiclePost.getProperty("userImg") + "></img> <b>" + "  " + vehiclePost.getProperty("companyName").toString() + 
+    		  " Error:  " + vehiclePost.getProperty("errorDetails").toString().substring(0, endIndex) + "</td>";   
       /*
       pageContent += "<td>" + entity.getKey().getId() + "</td><td>"
           + entity.getProperty("itemName") + "</td><td>"

@@ -48,9 +48,16 @@ public static Entity getSingleCompanySubscription(String userId, String companyN
     return Util.findEntity(key);
 }
 */
-  public static void deleteSingleCompanySubscription(String id) {
+  public static int deleteSingleCompanySubscription(String id,String userId) {
 		Key key = KeyFactory.createKey("UserCompanySubscription", id);
-		Util.deleteEntity(key);
+		Entity userCompanySubscription = Util.findEntity(key);
+		String companyName = userCompanySubscription.getProperty("companyName").toString();
+		Entity company = Company.getCompany(companyName);
+		if(!(company.getProperty("origUserId").toString().equals(userId))) {
+			Util.deleteEntity(key);
+			return 1;
+		}
+		return 0;
   }
 
   public static Iterable<Entity> getAllCompanySubscription() {

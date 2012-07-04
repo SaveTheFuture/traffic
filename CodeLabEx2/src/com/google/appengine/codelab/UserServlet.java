@@ -44,7 +44,6 @@ public class UserServlet extends BaseServlet {
 	 */
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
     super.doGet(req, resp);
     logger.log(Level.INFO, "Obtaining User listing");
     String searchFor = req.getParameter("q");
@@ -76,7 +75,7 @@ public class UserServlet extends BaseServlet {
     String image = req.getParameter("image");
 
     if("undefined".equals(id) || "undefined".equals(provider)) {
-    	return;
+    	resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
     //String autoSubscriptionVehicle = req.getParameter("autoSubscriptionVehicle");
     User.createOrUpdateUser(id, provider, fullName, email,image);
@@ -88,13 +87,15 @@ public class UserServlet extends BaseServlet {
 	 */
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-    String userkey = req.getParameter("name");
-    
-    
+    resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+
+/*
+    String userkey = req.getParameter("name");  
     logger.log(Level.INFO, "Deleting User {0}", userkey);
     Key key = KeyFactory.createKey("User", userkey);
     Util.deleteFromCache(key);
     Util.deleteEntity(key);
+*/    
   }
 
 	/**
@@ -115,6 +116,5 @@ public class UserServlet extends BaseServlet {
       return;
     }
     return;
-
   }
 }
