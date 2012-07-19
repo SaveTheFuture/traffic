@@ -66,7 +66,6 @@ public class User {
         if (image != null && !"".equals(image) && !"undefined".equals(image)) {
             user.setProperty("image", image);
           }
-    	
     }
     Util.persistEntity(user);
   }
