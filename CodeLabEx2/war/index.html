@@ -150,7 +150,7 @@
 <!-- ******************************************* End Create Company******************************************* -->
 					  					
 <!-- ******************************************* Start Vehicle Post SHOW (vehiclePost-show-ctr) ******************************************* -->
-  					<div id="vehiclePost-show-ctr">
+  					<div class="create-ctr" id="vehiclePost-show-ctr">
   						<div id="vehiclePost-details-ctr">
   							<div id = "vehiclePost-show-ctr-userName" ></div>
   							<br></br>
@@ -161,7 +161,6 @@
   							 <div><u> Error Details : </u></div>
   							 <br></br>
   							<div id = "vehiclePost-show-ctr-errorDetails" ></div>
-  							
   							<br></br>
   							<button id="fb-post">Post to FaceBook()</button>
   						</div>
@@ -169,7 +168,7 @@
 <!-- ******************************************* END Vehicle Post SHOW (vehiclePost-show-ctr) ******************************************* -->
 
 <!-- ******************************************* Start Vehicle Post Create (vehiclePost-create-ctr) ******************* -->
-					
+
   	<div class="create-ctr" id="vehiclePost-create-ctr">
   		<form dojoType="dijit.form.Form" name="vehiclePost-create-form" id="vehiclePost-create-form"
 			onsubmit="alert('Submitting')">
@@ -386,6 +385,10 @@
   				<div class="g-unit" id="vehiclePost-tab">
   					<div class ="message" id="vehiclePost-show-message" style="display:none">
   					</div>
+  					<div>
+  						<button data-dojo-type="dijit.form.Button" type="button" onclick="showTab('addPost')" >Add Post</button>
+  					</div>		
+  					
   					<!-- search container -->
    					<div class="gsc-search-box" id="vehiclePost-search-ctr">
    						<!-- section title -->
@@ -398,7 +401,7 @@
 							<br>
 						-->
    							<!--<label>Company Search</label>-->
-								<input type="text" name="companyName2" id="companyName2"   class="medium"
+								<input type="text" name="companyName2" id="companyName2" class="medium"
 									dojoType="dijit.form.FilteringSelect" store="companyMemoryStore" class="medium"
 									ucfirst="true" invalidMessage="Invalid Selection"/>
 								<input type="button" value="Search Company" onclick="searchBody(0,1,0)" class="gsc-search-button" />	
@@ -437,7 +440,7 @@ function( parser, borderContainer,contentPane,dataGrid,jsonRestStore,ready){
 
 require(["dojo/dom", "dojo/dom-style","dojo/store/Memory","dijit/form/FilteringSelect",
 	"dijit/form/ComboBox", "dijit/Editor", "dijit/form/TextBox","dijit/form/Form", 
-	"dijit/form/CheckBox","dijit/form/DateTextBox","dojo/domReady!"], 
+	"dijit/form/CheckBox","dijit/form/DateTextBox","dijit/form/Button","dojo/domReady!"], 
 	function(dom1,style1,Memory) {
 	var cityStore = new Memory();
 	var companyStore = new Memory();
