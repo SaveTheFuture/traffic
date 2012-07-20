@@ -11,9 +11,8 @@
   <link type="text/css" rel="stylesheet" href="Blog.css">
   
   <script language="javascript" src='script/jquery-1.6.min.js'></script>
-  <script language="javascript" src='script/ajax.util.js'></script>
+  <script language="javascript" src='script/ajax.util.up.js'></script>
   <script src="//connect.facebook.net/en_US/all.js"></script>
-
 	<!-- load dojo and provide config via data attribute -->
 	<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js"
 			data-dojo-config="async:true, parseOnLoad: true">
@@ -239,9 +238,10 @@
 					<button type="submit" id="btn">Upload Files!</button>
 				</form>
 			</div>
+  
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script src="script/cupload.js"></script>
-
+  
 			<div class="formAnswer">
 				<fieldset id="position" class="dijitInline">
 					<input type="checkbox" name="facebook" id="facebook" value="true" dojoType="dijit.form.CheckBox" /> <label for="facebook">Post To Facebook</label>
@@ -402,7 +402,10 @@
   				<div class="g-unit" id="vehiclePost-tab">
   					<div class ="message" id="vehiclePost-show-message" style="display:none">
   					</div>
-
+  					<div>
+  						<button data-dojo-type="dijit.form.Button" type="button" onclick="showTab('addPost')" >Add Post</button>
+  					</div>		
+					
   					<!-- search container -->
    					<div class="gsc-search-box" id="vehiclePost-search-ctr">
    						<!-- section title -->
@@ -454,7 +457,7 @@ function( parser, borderContainer,contentPane,dataGrid,jsonRestStore,ready){
 
 require(["dojo/dom", "dojo/dom-style","dojo/store/Memory","dijit/form/FilteringSelect",
 	"dijit/form/ComboBox", "dijit/Editor", "dijit/form/TextBox","dijit/form/Form", 
-	"dijit/form/CheckBox","dijit/form/DateTextBox","dojo/domReady!"], 
+	"dijit/form/CheckBox","dijit/form/DateTextBox","dijit/form/Button","dojo/domReady!"], 
 	function(dom1,style1,Memory) {
 	var cityStore = new Memory();
 	var companyStore = new Memory();
