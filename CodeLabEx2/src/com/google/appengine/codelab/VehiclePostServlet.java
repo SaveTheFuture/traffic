@@ -18,6 +18,7 @@ package com.google.appengine.codelab;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -283,7 +284,7 @@ public class VehiclePostServlet extends BaseServlet {
 		"</script>";  
 		pageContent += "<button id='fb-post'>Post to Facebook</button>";
 		*/
-        writer.println(Util.writeJSON(vehiclePost));
+        writer.print(Util.writeJSON(vehiclePost));
         return;
 }
 
@@ -359,16 +360,21 @@ public class VehiclePostServlet extends BaseServlet {
     String district = req.getParameter("district");
     String location = req.getParameter("location");
     */
+
     String errorDetails = req.getParameter("errorDetails");
     String userId = req.getParameter("userId");
     String uniqueId = req.getParameter("uniqueId");
     String date = req.getParameter("date");
+    String blobkey = req.getParameter("blobkey");
+
+
     /*
     String returnVal = VehiclePost.createOrUpdateVehiclePost( PostId,companyName, leasedToCompany, vehicleRegNumber, VehicleDetails, errorDetails,
     			state, district, location,userKey,uniqueId,date);
     */
-    String returnVal = VehiclePost.createOrUpdateVehiclePost(userId,uniqueId,date,errorDetails);
+    String returnVal = VehiclePost.createOrUpdateVehiclePost(userId,uniqueId,date,errorDetails,blobkey);
 
+    System.out.println(returnVal);
     resp.setContentType("text/html");
     PrintWriter writer = resp.getWriter();
     writer.println(returnVal);
@@ -405,9 +411,11 @@ public class VehiclePostServlet extends BaseServlet {
 	/**
 	 * Redirect the call to doDelete or doPut method
 	 */
+  
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 	  
+      
     String action = req.getParameter("action");
     if (action.equalsIgnoreCase("delete")) {
       doDelete(req, resp);

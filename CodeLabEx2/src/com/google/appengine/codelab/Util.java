@@ -332,7 +332,7 @@ public static String writeJSON(Entity result) {
       sb.append("\"name\" : \"" + result.getKey().getName() + "\",");
 
     for (String key : properties.keySet()) {
-      sb.append("\"" + key + "\" : \"" + properties.get(key) + "\",");
+      sb.append("\"" + key + "\" : \"" + properties.get(key).toString().replaceAll("\\r\\n|\\r|\\n", " ").trim() + "\",");
     }
     sb.deleteCharAt(sb.lastIndexOf(","));
     sb.append("}");

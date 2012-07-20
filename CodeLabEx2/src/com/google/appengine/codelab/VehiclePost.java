@@ -38,6 +38,7 @@ public class VehiclePost {
 	/**
 	 * Create an entity if it does not exist, else update the existing entity.
 	 * The order has header and line item. Both needs to be added in a single transaction.
+	 * @param blobkey 
 	 * 
 	 * @param companyName
 	 *          : 
@@ -53,7 +54,7 @@ public class VehiclePost {
 	 * 
 	 * @throws IOException 
 	 */
-  public static String createOrUpdateVehiclePost(String userId, String uniqueId, String date, String errorDetails) throws IOException {
+  public static String createOrUpdateVehiclePost(String userId, String uniqueId, String date, String errorDetails, String blobkey) throws IOException {
     Entity vehiclePost = null;
     /* Setting the postID to Null for now.
      * No support for Editing/Deleting the Post
@@ -104,6 +105,7 @@ public class VehiclePost {
     vehiclePost.setProperty("totalCount", 0);
     vehiclePost.setProperty("uniqueId", uniqueId);
     vehiclePost.setProperty("date",date);
+    vehiclePost.setProperty("blobkey",blobkey);
     Util.persistEntity(vehiclePost);
     
     //Key key = vehiclePost.getKey();
