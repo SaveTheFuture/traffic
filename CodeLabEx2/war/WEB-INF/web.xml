@@ -14,23 +14,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/user</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>UserVehicleSubscriptionServlet</servlet-name>
-		<servlet-class>com.google.appengine.codelab.UserVehicleSubscriptionServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>UserVehicleSubscriptionServlet</servlet-name>
-		<url-pattern>/userVehicleSubscription</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>VehicleServlet</servlet-name>
-		<servlet-class>com.google.appengine.codelab.VehicleServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>VehicleServlet</servlet-name>
-		<url-pattern>/vehicle</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>CompanyServlet</servlet-name>
@@ -39,24 +22,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>CompanyServlet</servlet-name>
 		<url-pattern>/company</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>DistrictServlet</servlet-name>
-		<servlet-class>com.google.appengine.codelab.DistrictServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DistrictServlet</servlet-name>
-		<url-pattern>/district</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>StateServlet</servlet-name>
-		<servlet-class>com.google.appengine.codelab.StateServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>StateServlet</servlet-name>
-		<url-pattern>/state</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -76,17 +41,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>VehiclePostServlet</servlet-name>
 		<url-pattern>/vehiclePost</url-pattern>
 	</servlet-mapping>	
-		
-	<servlet>
-		<servlet-name>GlobalSubscriptionIdServlet</servlet-name>
-		<servlet-class>com.google.appengine.codelab.GlobalSubscriptionIdServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GlobalSubscriptionIdServlet</servlet-name>
-		<url-pattern>/globalSubscriptionId</url-pattern>
-	</servlet-mapping>	
-	
-		
 	<servlet>
 		<servlet-name>CompanyGlobalSubscriptionIdServlet</servlet-name>
 		<servlet-class>com.google.appengine.codelab.CompanyGlobalSubscriptionIdServlet</servlet-class>
@@ -95,8 +49,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>CompanyGlobalSubscriptionIdServlet</servlet-name>
 		<url-pattern>/companyGlobalSubscriptionId</url-pattern>
 	</servlet-mapping>	
-
-		
 	<servlet>
 		<servlet-name>StickerNameServlet</servlet-name>
 		<servlet-class>com.google.appengine.codelab.StickerNameServlet</servlet-class>
@@ -104,9 +56,45 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>StickerNameServlet</servlet-name>
 		<url-pattern>/stickerName</url-pattern>
-	</servlet-mapping>	
+	</servlet-mapping>
 	
-	
+	<servlet>	
+	 	<servlet-name>Upload</servlet-name>
+  		<servlet-class>com.google.appengine.codelab.Upload</servlet-class>
+ 	</servlet>
+ 	<servlet-mapping>
+  		<servlet-name>Upload</servlet-name>
+  		<url-pattern>/upload</url-pattern>
+ 	</servlet-mapping>
+ 	
+	 <servlet>
+  		<servlet-name>Dispatch</servlet-name>
+  		<servlet-class>com.google.appengine.codelab.Dispatch</servlet-class>
+ 	</servlet>
+ 	 <servlet-mapping>
+  		<servlet-name>Dispatch</servlet-name>
+  		<url-pattern>/dispatch</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<servlet>
+  		<servlet-name>Serve</servlet-name>
+  		<servlet-class>com.google.appengine.codelab.Serve</servlet-class>
+ 	</servlet>
+ 	 <servlet-mapping>
+  		<servlet-name>Serve</servlet-name>
+  		<url-pattern>/serve</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<servlet>
+  		<display-name>admintasks</display-name>
+  		<servlet-name>AdminTasks</servlet-name>
+  		<servlet-class>com.google.appengine.codelab.AdminTasks</servlet-class>
+ 	</servlet>
+  	<servlet-mapping>
+  		<servlet-name>AdminTasks</servlet-name>
+  		<url-pattern>/adminTasks</url-pattern>
+ 	</servlet-mapping>
+ 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

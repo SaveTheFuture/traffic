@@ -152,6 +152,7 @@
 <!-- ******************************************* Start Vehicle Post SHOW (vehiclePost-show-ctr) ******************************************* -->
   					<div class="create-ctr" id="vehiclePost-show-ctr">
   						<div id="vehiclePost-details-ctr">
+  						<!--
   							<div id = "vehiclePost-show-ctr-userName" ></div>
   							<br></br>
   							<div id = "vehiclePost-show-ctr-companyName" ></div>
@@ -162,8 +163,12 @@
   							 <br></br>
   							<div id = "vehiclePost-show-ctr-errorDetails" ></div>
   							<br></br>
-  							<button id="fb-post">Post to FaceBook()</button>
+  							<div id = "vehiclePost-show-ctr-image" ></div>
+  							<br></br>
+  							-->
   						</div>
+  						<button id="fb-post">Post to FaceBook()</button>
+  						
 					</div>
 <!-- ******************************************* END Vehicle Post SHOW (vehiclePost-show-ctr) ******************************************* -->
 
@@ -171,7 +176,7 @@
 
   	<div class="create-ctr" id="vehiclePost-create-ctr">
   		<form dojoType="dijit.form.Form" name="vehiclePost-create-form" id="vehiclePost-create-form"
-			onsubmit="alert('Submitting')">
+			onsubmit="alert('Submitting')" enctype="multipart/form-data">
 			<h2>Share Your Experience</h2>
 			<div class="formQuestion">
 				<span>Vehicle Details</span>
@@ -226,6 +231,19 @@
 			</div>
 
 			<div class="formAnswer">
+				<input name="blobkey" id="blobkey" type="hidden" value="blobkey"></input>
+			</div>
+
+			<div id="main" class="formAnswer">
+				<h1>Upload Image</h1>
+				<form method="post" enctype="multipart/form-data"  action="/dispatch">
+					<input type="file" name="myFile" id="myFile" accept="image/*" />
+					<button type="submit" id="btn">Upload Files!</button>
+				</form>
+			</div>
+  			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  			<script src="script/cupload.js"></script>
+  			<div class="formAnswer">
 				<fieldset id="position" class="dijitInline">
 					<input type="checkBox" name="facebook" id="facebook" value="true" dojoType="dijit.form.CheckBox" /> <label for="facebook">Post To Facebook</label>
 				</fieldset>

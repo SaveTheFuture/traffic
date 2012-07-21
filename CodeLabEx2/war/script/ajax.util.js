@@ -523,8 +523,127 @@ var formValidate = function(entity){
 	//$('#'+entity+'-show-message').hide();
 }
 
+//future usage
+var savevehpost = function(entity) {
+	$('#' + "error-show-message").hide();
+	formdata = false;
+	// creating the data object to be sent to backend
+	var data = new Array();
+	if (window.FormData) {
+		formdata = new FormData();
+	}
+
+	if (document.getElementById("myFile").value != "") {
+		var reader, file;
+		file = document.getElementById("myFile");
+		// file = this.files[0];
+		if (!!file.type.match(/image.*/)) {
+			if (window.FileReader) {
+				reader = new FileReader();
+				reader.readAsDataURL(file);
+			}
+			if (formdata) {
+				formdata.append("image", file);
+			}
+		}
+	}
+
+	// collecting the field values from the form
+	var formEleList = $('form#' + entity + '-create-form').serializeArray();
+	for ( var i = 0; i < formEleList.length; i++) {
+		formdata.append(formEleList[i].name, formEleList[i].value);
+	}
+
+	if (entity == ENTITY_VEHICLE_POST) {
+		if ("true" == dijit.byId('facebook').getValue()) {
+			// POST to facebook
+			fbPost();
+		}
+		formdata.append("errorDetails", dijit.byId('errorDetails').getValue());
+		formdata.append("userId", userId + provider);
+	}
+	// setting action as PUT
+	formdata.append("action", 'PUT');
+	// making the ajax call
+	$
+			.ajax({
+				url : "/" + entity,
+				type : "POST",
+				data : formdata,
+				processData : false,
+				contentType : false,
+				error : function(data) {
+					if (ENTITY_COMPANY == entity) {
+						showErrMessage("This Company Is Already Registered By Somebody Else");
+					}
+				},
+				success : function(data) {
+					if (ENTITY_VEHICLE_POST == entity) {
+						$('#vehiclePost-create-form').html(data);
+					}
+					showHideCreate(entity, false);
+				}
+			});
+	$('#' + entity + '-reset').click();
+}
+
 //function to save an entity
 var save = function(entity) {
+	$('#' + "error-show-message").hide();
+	// creating the data object to be sent to backend
+	var data = new Array();
+	// collecting the field values from the form
+	var formEleList = $('form#' + entity + '-create-form').serializeArray();
+	for ( var i = 0; i < formEleList.length; i++) {
+		data[data.length] = new param(formEleList[i].name, formEleList[i].value);
+	}
+
+	if (entity == ENTITY_USER) {
+		data[i++] = new param("id", userId);
+		data[i++] = new param("provider", provider);
+	}
+	if ((entity == ENTITY_USER_VEHICLE_SUBSCRIPTION)
+			|| (entity == ENTITY_USER_COMPANY_SUBSCRIPTION)
+			|| (entity == ENTITY_COMPANY)) {
+		data[i++] = new param("userId", userId + provider);
+	}
+	if (entity == ENTITY_VEHICLE_POST) {
+		if ("true" == dijit.byId('facebook').getValue()) {
+			// POST to facebook
+			fbPost();
+		}
+		data[i++] = new param("errorDetails", dijit.byId('errorDetails')
+				.getValue().replace("<br _moz_editor_bogus_node=\"TRUE\" />",
+						""));
+		data[i++] = new param("userId", userId + provider);
+
+	}
+	// setting action as PUT
+	data[data.length] = new param('action', 'PUT');
+	// making the ajax call
+	$
+			.ajax({
+				url : "/" + entity,
+				type : "POST",
+				data : data,
+
+				error : function(data) {
+					if (ENTITY_COMPANY == entity) {
+						showErrMessage("This Company Is Already Registered By Somebody Else");
+					}
+				},
+				success : function(data) {
+					if (ENTITY_VEHICLE_POST == entity) {
+						$('#vehiclePost-create-form').html(data);
+					}
+					showHideCreate(entity, false);
+				}
+			});
+	$('#' + entity + '-reset').click();
+}
+
+//function to save an entity
+var save_old = function(entity) {
 	$('#' + "error-show-message").hide();
 
 		// creating the data object to be sent to backend
@@ -730,6 +849,7 @@ var createMessage = function(data) {
 	  return mailBody;
 }
 
+/*
 var displayBody = function(resp, success) {
 	$('#' + "error-show-message").hide();
 
@@ -738,28 +858,26 @@ var displayBody = function(resp, success) {
 		if(resp){
 			data=resp.data;
 		}
-		//creating the html content
 		if(data.length > 0){
-			//$('#' + 'vehiclePost-show-ctr').show();
-			//style.set(dom.byId('vehiclePost-show-ctr'),"display","inline");
-			/*
-			var msg = createMessage(data[0]);
-			dom.byId('vehiclePost-show-ctr').innerHTML  = msg;
-			*/
-			dom.byId("vehiclePost-show-ctr-userName").innerHTML = "<label><u> Posted By </u> :  " + data[0].userName+ " </label>" + "<img src=" + data[0].userImg + "></img>";
-			dom.byId("vehiclePost-show-ctr-companyName").innerHTML = "<u>Company Name </u> : <b>" + data[0].companyName + " </b>";
-			dom.byId("vehiclePost-show-ctr-errorDate").innerHTML = "<u>Date of Incident</u> : <b>" + data[0].date + "</b>";
+			dom.byId("vehiclePost-show-ctr-userName").innerHTML = "<label><u> Posted By </u> :  "
+				+ data[0].userName
+				+ " </label>"
+				+ "<img src="
+				+ data[0].userImg + "></img>";
+			dom.byId("vehiclePost-show-ctr-companyName").innerHTML = "<u>Company Name </u> : <b>"
+				+ data[0].companyName + " </b>";
+			dom.byId("vehiclePost-show-ctr-errorDate").innerHTML = "<u>Date of Incident</u> : <b>"
+				+ data[0].date + "</b>";
+			if("undefined" == data[0].incident_image) {
+				alert("no image");
+			}else {
+				dom.byId("vehiclePost-show-ctr-image").innerHTML = "<img src="
+					+ data[0].incident_image + "></img>";
+			}
 			dom.byId("vehiclePost-show-ctr-errorDetails").innerHTML = data[0].errorDetails;
-			/*
-			dom.byId("d-errorDetails").innerHTML = data[0].errorDetails;
-			dom.byId("d-state").innerHTML = data[0].state;
-			dom.byId("d-district").innerHTML = data[0].district;
-			dom.byId("d-location").innerHTML = data[0].location;
-			*/
 			fbName = data[0].vehicleRegNumber;
 			fbCaption = data[0].companyName;
 			fbDescription = data[0].errorDetails;
-			
 		}
 	} else {
 		var html = "<b> Sorry, We are Unable to Retrieve the data. Please Try Again </b>";
@@ -767,7 +885,7 @@ var displayBody = function(resp, success) {
 		showErrMessage(html);
 	}
 }
-
+*/
 
 var getBody=function(id){
 	showAddPost=0;
@@ -783,10 +901,12 @@ var getBody=function(id){
       	  //data: "offset="+offset,
       	   data : parameter,
       	  success: function(resp){
-      		  	displayBody(resp,1);
+      		$('#vehiclePost-details-ctr').html(resp);
       	  },
       	  error: function(resp){
-      		  displayBody(resp,0);
+      		var html = "<b> Sorry, We are Unable to Retrieve the data. Please Try Again </b>";
+    		showErrMessage(html);
+//          displayBody(resp,0);
       	  }
     });
 }
