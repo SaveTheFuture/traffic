@@ -150,6 +150,7 @@ var fbUserDetail = function(response) {
         //alert('User cancelled login or did not fully authorize.');
       }
 }
+
 //function to show the tab
 var showTab = function(entity) {
 	if(ENTITY_VEHICLE_POST != entity) {
@@ -165,7 +166,6 @@ var showTab = function(entity) {
 	if((ENTITY_USER == entity) || (ENTITY_VEHICLE_POST == entity)) {
 		populateMemoryStore(ENTITY_COMPANY);
 	}
-
 	if(ENTITY_ADD_POST == entity) {
 		$('#home-tab').hide();
 		$('#user-tab').hide();
@@ -471,6 +471,10 @@ var showErrMessage = function(message){
 
 }
 
+var showMessage = function(message){
+		$('#'+'error-show-message').show().html('<p><b>'+message+'</b></p>');
+
+}
 var showMessage = function(message, entity){
 	$('#' + "error-show-message").hide();
 
@@ -634,7 +638,7 @@ var save = function(entity) {
 				},
 				success : function(data) {
 					if (ENTITY_VEHICLE_POST == entity) {
-						$('#vehiclePost-create-form').html(data);
+						$('#error-show-message').html(data);
 					}
 					showHideCreate(entity, false);
 				}
