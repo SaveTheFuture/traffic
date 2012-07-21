@@ -34,6 +34,7 @@ import com.google.appengine.api.datastore.KeyFactory;
  * 
  * @author
  */
+
 @SuppressWarnings("serial")
 public class UserServlet extends BaseServlet {
 
@@ -49,16 +50,12 @@ public class UserServlet extends BaseServlet {
     String searchFor = req.getParameter("q");
     PrintWriter out = resp.getWriter();
     if (searchFor == null || searchFor.equals("")) {
-      //Iterable<Entity> entities = null;
-      //entities = User.getAllUsers();      
-      //out.println(Util.writeJSON(entities));
     } else {
       Entity entity = User.getSingleUser(searchFor);
       if(null != entity) {
     	  out.println(Util.writeJSON(entity));
       }
     }
-    //GlobalSubscriptionId.createGlobalSubscriptionId();
     return;
   }
 
@@ -77,7 +74,6 @@ public class UserServlet extends BaseServlet {
     if("undefined".equals(id) || "undefined".equals(provider)) {
     	resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
-    //String autoSubscriptionVehicle = req.getParameter("autoSubscriptionVehicle");
     User.createOrUpdateUser(id, provider, fullName, email,image);
   }
 
@@ -88,14 +84,6 @@ public class UserServlet extends BaseServlet {
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
     resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
-
-/*
-    String userkey = req.getParameter("name");  
-    logger.log(Level.INFO, "Deleting User {0}", userkey);
-    Key key = KeyFactory.createKey("User", userkey);
-    Util.deleteFromCache(key);
-    Util.deleteEntity(key);
-*/    
   }
 
 	/**
@@ -103,7 +91,6 @@ public class UserServlet extends BaseServlet {
 	 */
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-	  
     String action = req.getParameter("action");
     if(null == action) {
     	action = "put";

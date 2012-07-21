@@ -38,11 +38,6 @@ import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
-
-import com.google.appengine.codelab.PMF;
 
 /**
  * This is the utility class for all servlets. It provides method for inserting,
@@ -321,23 +316,25 @@ public static String writeJSONDojo(Iterable<Entity> entities) {
 	 *          entity to return as JSON strings
 	 */
 public static String writeJSON(Entity result) {
-  logger.log(Level.INFO, "creating JSON format object for single Entity");
-  StringBuilder sb = new StringBuilder();
-  sb.append("{\"data\": [");
-    Map<String, Object> properties = result.getProperties();
-    sb.append("{");
-    if (result.getKey().getName() == null)
-      sb.append("\"name\" : \"" + result.getKey().getId() + "\",");
-    else
-      sb.append("\"name\" : \"" + result.getKey().getName() + "\",");
+	  logger.log(Level.INFO, "creating JSON format object for single Entity");
+	  StringBuilder sb = new StringBuilder();
+	  sb.append("{\"data\": [");
+	    Map<String, Object> properties = result.getProperties();
+	    sb.append("{");
+	    if (result.getKey().getName() == null)
+	      sb.append("\"name\" : \"" + result.getKey().getId() + "\",");
+	    else
+	      sb.append("\"name\" : \"" + result.getKey().getName() + "\",");
 
-    for (String key : properties.keySet()) {
-      sb.append("\"" + key + "\" : \"" + properties.get(key) + "\",");
-    }
-    sb.deleteCharAt(sb.lastIndexOf(","));
-    sb.append("}");
-  sb.append("]}");
-  return sb.toString();
+	    for (String key : properties.keySet()) {
+	      if(null != properties.get(key)) {	
+	    	  sb.append("\"" + key + "\" : \"" + properties.get(key).toString().replaceAll("\\r\\n|\\r|\\n", " ").trim() + "\",");
+	      }
+	    }
+	    sb.deleteCharAt(sb.lastIndexOf(","));
+	    sb.append("}");
+	  sb.append("]}");
+	  return sb.toString();
 }
 
 

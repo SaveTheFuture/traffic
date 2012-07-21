@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
@@ -25,6 +26,10 @@ import javax.activation.DataHandler;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
+import com.google.appengine.api.images.Image;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.Transform;
 
 /**
  * This class defines the methods for basic operations of create, update & retrieve
@@ -38,6 +43,8 @@ public class VehiclePost {
 	/**
 	 * Create an entity if it does not exist, else update the existing entity.
 	 * The order has header and line item. Both needs to be added in a single transaction.
+	 * 
+	 * @param blobkey 
 	 * 
 	 * @param companyName
 	 *          : 
@@ -53,47 +60,17 @@ public class VehiclePost {
 	 * 
 	 * @throws IOException 
 	 */
-  public static String createOrUpdateVehiclePost(String userId, String uniqueId, String date, String errorDetails) throws IOException {
+  public static String createOrUpdateVehiclePost(String userId, String uniqueId, String date, String errorDetails, String blobkey) throws IOException {
     Entity vehiclePost = null;
     /* Setting the postID to Null for now.
      * No support for Editing/Deleting the Post
      */
-    /*
-    if(!postId.equals("null")) {
-    	vehiclePost = getSingleVehiclePost(postId);
-    }
 
-    if(null == vehiclePost) {
-    	vehiclePost = new Entity("VehiclePost");
-        //Company.createCompany(companyName);
-        //Company.createCompany(leasedToCompany);
-        //Vehicle.createVehicle(vehicleRegNumber,null,null);
-        State.createState(state);
-        District.createDistrict(district);
-    }
-
-    else {
-    	if(0 == CheckVehiclePostUser(vehiclePost,userKey)) {
-    		return;
-    	}
-    }
-	
-    vehiclePost.setProperty("leasedToCompany", leasedToCompany);
-    vehiclePost.setProperty("vehicleRegNumber", vehicleRegNumber);
-    vehiclePost.setProperty("VehicleDetails", VehicleDetails);
-    vehiclePost.setProperty("state", state);
-    vehiclePost.setProperty("district", district);
-    vehiclePost.setProperty("location", location);
-    
-    CompanyPostAns.createCompanyPostAns(key,companyName);
-    CompanyPostAns.createCompanyPostAns(key,leasedToCompany);
-    VehiclePostAns.createVehiclePostAns(key,vehicleRegNumber);
-
-*/
     vehiclePost = new Entity("VehiclePost");
     Entity companyGlobalSubscriptionId = CompanyGlobalSubscriptionId.getCompanyGlobalSubscriptionId(uniqueId);
     String companyName = companyGlobalSubscriptionId.getProperty("companyName").toString();
-
+    String imageUrl = null;
+    
     vehiclePost.setProperty("companyName", companyName);
     vehiclePost.setProperty("errorDetails", errorDetails);
     vehiclePost.setProperty("userId", userId);
@@ -104,37 +81,46 @@ public class VehiclePost {
     vehiclePost.setProperty("totalCount", 0);
     vehiclePost.setProperty("uniqueId", uniqueId);
     vehiclePost.setProperty("date",date);
+    vehiclePost.setProperty("blobkey",blobkey);
+    if("blobkey".equals(blobkey)) {
+    	imageUrl = null;
+    }
+    else {
+    	BlobKey blob_Key = new BlobKey(blobkey);
+   		ImagesService imagesService = ImagesServiceFactory.getImagesService();
+   		imageUrl = imagesService.getServingUrl(blob_Key, 500, false);
+    }
+    vehiclePost.setProperty("incident_image",imageUrl);
     Util.persistEntity(vehiclePost);
-    
-    //Key key = vehiclePost.getKey();
-    
     try {
 		sendMail(UserCompanySubscription.getAllUserListforCompany(companyName),vehiclePost);
 	} catch (MessagingException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-    /*
-    try {
-		sendMail(UserVehicleSubscription.getAllUserListforVehicle(vehicleRegNumber),vehiclePost);
-	} catch (MessagingException e) {
-		
-		e.printStackTrace();
-	}
-    */
     return "Thanks For Sharing " + User.getSingleUser(userId).getProperty("fullName").toString() + "!"; 
   }
 
   
-  private static String createMailMessage(Entity vehiclePost) {
+  public static String createMailMessage(Entity vehiclePost) {
 	  String companyName = vehiclePost.getProperty("companyName").toString();
 	  String mailBody = "";
-	  mailBody += "<tr>";
-	  mailBody += "<td><label> Company Name : " + companyName + "</label></td>";
-	  mailBody += "<td> <label> Posted By " + vehiclePost.getProperty("userName").toString() + " </label> " ;
-	  mailBody += " <img src=" + vehiclePost.getProperty("userImg").toString() + "></img> </td>";
-	  mailBody += "<td> <label>" + vehiclePost.getProperty("errorDetails").toString() + "</label></td>";
-	  mailBody += "</tr>";
+	  mailBody += "<div>";
+	  mailBody += "<label> Posted By :" + vehiclePost.getProperty("userName").toString() + " </label> " ;
+	  mailBody += " <img src=" + vehiclePost.getProperty("userImg").toString() + "></img>";
+	  mailBody += "<br></br>";
+	  mailBody += "<br></br>";
+	  mailBody += "<label> Company Name :<b> " + companyName + " </b></label>";
+	  mailBody += "<br></br>";
+	  mailBody += "<label> Error Details :<b>" + vehiclePost.getProperty("errorDetails").toString() + " </b></label>";
+	  mailBody += "<br></br>";
+	  mailBody += "<label> Date of Incident :" + vehiclePost.getProperty("date").toString() + "</label>";
+	  mailBody += "<br></br>";
+	  if(null != vehiclePost.getProperty("incident_image")) {
+		  mailBody += "<label> <img src=" + vehiclePost.getProperty("incident_image").toString() + " ></img></label>";
+	  }
+	  mailBody += "<br></br>";
+	  mailBody += "</div>";
 	  return mailBody;
   }
   
@@ -175,7 +161,11 @@ public class VehiclePost {
     		  try {
     			  if(user != null) {
     				  count++;  
-    				  msg.addRecipient(Message.RecipientType.TO,
+    				  if(count == 1) {
+        				  msg.addRecipient(Message.RecipientType.TO,
+        				          new InternetAddress("admin@savethefuture.in", "Save The Future Team"));
+    				  }
+    				  msg.addRecipient(Message.RecipientType.BCC,
 				          new InternetAddress(user.getProperty("eMail").toString(), user.getProperty("fullName").toString()));
     			  }
 			} catch (UnsupportedEncodingException e) {

@@ -22,13 +22,14 @@ public class Upload extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
     	
-        res.setContentType("text/html");
+        res.setContentType("text/plain");
         PrintWriter writer = res.getWriter();
 
         Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(req);
-        BlobKey blobKey = blobs.get("myFile");
-        writer.println(blobKey.toString());
-/*        
+        BlobKey blobKey = blobs.get("image");
+        writer.print(blobKey.getKeyString());
+        //System.out.println("Sent blobkey : -"+blobKey.getKeyString());
+        /*      
         if (blobKey == null) {
             res.sendRedirect("/");
         } else {
