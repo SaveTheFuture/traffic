@@ -18,16 +18,30 @@ import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.Transform;
 
+@SuppressWarnings("serial")
 public class Dispatch extends HttpServlet {
     private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
     public void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
-    	
+        res.setContentType("text/plain");
+        PrintWriter writer = res.getWriter();
+
     	String uploadurl=blobstoreService.createUploadUrl("/upload");
     	System.out.println("Creating an "+uploadurl);
 		RequestDispatcher rd = req.getRequestDispatcher(uploadurl.substring(uploadurl.indexOf('_')));
-		rd.forward(req, res);
+        //writer.println(uploadurl.substring(uploadurl.indexOf('_')));
+		writer.println(uploadurl);
+		//rd.forward(req, res);
+		//Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(req);
+        //BlobKey blobKey = blobs.get("image");
+        //writer.print(blobKey.getKeyString());
+    }
 
+    public void doGet(HttpServletRequest req, HttpServletResponse res)
+        throws ServletException, IOException {
+        res.setContentType("text/html");
+        PrintWriter writer = res.getWriter();
+        writer.println("Hello Sachin");
     }
 }

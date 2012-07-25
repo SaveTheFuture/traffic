@@ -14,8 +14,11 @@ var ENTITY_ID = "globalSubscriptionId";
 var ENTITY_VEHICLE_POST='vehiclePost';
 var ENTITY_VEHICLE='vehicle';
 var ENTITY_CITY='district';
-var APP_ID = '161629197295331';
-var APP_URL = 'http://localhost:8888/';
+var APP_ID = '161629197295331'; //savethefuture
+//var APP_ID = '400798689964910'; //localhost
+var APP_URL = 'www.savethefuture.in';
+//var APP_URL = 'http://localhost:8888';
+
 var userIsConnected = 0;
 var name = '';
 var email = '';
@@ -96,8 +99,8 @@ var fbInit = function() {
     //$('#' + "fb-post").hide();
 	
     FB.init({
-        appId      : 400798689964910, // App ID
-        channelUrl : 'http://localhost:8888/channel.html', // Channel File
+        appId      : 161629197295331, // App ID
+        channelUrl : 'www.savethefuture.in/channel.html', // Channel File
         status     : true, // check login status
         cookie     : true, // enable cookies to allow the server to access the session
         xfbml      : true  // parse XFBML

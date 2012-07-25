@@ -31,11 +31,23 @@
 			$.ajax({
 				url: "/dispatch",
 				type: "POST",
-				data: formdata,
 				processData: false,
 				contentType: false,
 				success: function (res) {
-					document.getElementById("blobkey").value = res; 
+					$.ajax({
+						url: res,
+						type: "POST",
+						data: formdata,
+						processData: false,
+						contentType: false,
+						success: function (res) {
+							document.getElementById("blobkey").value = res; 
+						}
+					});
+					//document.getElementById("blobkey").value = res; 
+				},
+				error : function(res) {
+					alert("error response recieved " + res);
 				}
 			});
 		}

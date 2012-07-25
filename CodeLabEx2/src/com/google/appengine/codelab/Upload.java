@@ -1,6 +1,7 @@
 package com.google.appengine.codelab;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -26,6 +27,8 @@ public class Upload extends HttpServlet {
         PrintWriter writer = res.getWriter();
 
         Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(req);
+        //BlobKey blobKey = blobstoreService.getUploads(req).get("image").get(0);
+        
         BlobKey blobKey = blobs.get("image");
         writer.print(blobKey.getKeyString());
         //System.out.println("Sent blobkey : -"+blobKey.getKeyString());

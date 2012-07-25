@@ -101,7 +101,6 @@ public class VehiclePost {
     return "Thanks For Sharing " + User.getSingleUser(userId).getProperty("fullName").toString() + "!"; 
   }
 
-  
   public static String createMailMessage(Entity vehiclePost) {
 	  String companyName = vehiclePost.getProperty("companyName").toString();
 	  String mailBody = "";
@@ -112,8 +111,10 @@ public class VehiclePost {
 	  mailBody += "<br></br>";
 	  mailBody += "<label> Company Name :<b> " + companyName + " </b></label>";
 	  mailBody += "<br></br>";
-	  mailBody += "<label> Error Details :<b>" + vehiclePost.getProperty("errorDetails").toString() + " </b></label>";
+	  mailBody += "<label> Error Details :<b>";
 	  mailBody += "<br></br>";
+	  mailBody +=  vehiclePost.getProperty("errorDetails").toString() + " </b></label>";
+	  mailBody += "<br></br>";	  
 	  mailBody += "<label> Date of Incident :" + vehiclePost.getProperty("date").toString() + "</label>";
 	  mailBody += "<br></br>";
 	  if(null != vehiclePost.getProperty("incident_image")) {
