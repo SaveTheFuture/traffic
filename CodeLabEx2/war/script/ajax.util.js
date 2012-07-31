@@ -53,7 +53,7 @@ var init = function(dom1,style1,cityStore,companyStore,vehicleStore,stickerStore
 	//save("blogEntry");
 	fbInit();
 	//showing the home tab on initializing
-	showTab(ENTITY_VEHICLE_POST);
+	showTab(HOME);
 	showAddPost = 1;
 	//adding event listeners to the tabs
 	$('#tabs a').click(function(event) {
@@ -92,6 +92,9 @@ var createGrid = function () {
  	companyGrid.startup();
 }
 */
+
+
+		
 
 var fbInit = function() {
     $('#' + "fb-logout").hide();
@@ -156,16 +159,20 @@ var fbUserDetail = function(response) {
 
 //function to show the tab
 var showTab = function(entity) {
+	if(entity == HOME) {
+		//createBlinds();
+	}
 	if(ENTITY_VEHICLE_POST != entity) {
 		showAddPost = 0;
 	}
-	
+	/*
 	if((ENTITY_COMPANY == entity) || (ENTITY_ADD_POST == entity)) {
 		if(0 == userIsConnected) {
 			showErrMessage("Please Log in First");
 			return;
 		}
 	}
+	*/
 	if((ENTITY_USER == entity) || (ENTITY_VEHICLE_POST == entity)) {
 		populateMemoryStore(ENTITY_COMPANY);
 	}
@@ -211,12 +218,12 @@ var showTab = function(entity) {
 	if(entity!=HOME)
 		$('#'+entity+'-search-reset').click();
 	
-	if (entity == ENTITY_VEHICLE_POST){
+	if ((entity == ENTITY_VEHICLE_POST) || (entity==HOME)){
 		showTab(ENTITY_ADD_POST);
 		//style.set(dom.byId('leftCol'),"display","inline");
 		//$('#' + 'vehiclePost-show-ctr').show();
 	}
-	else if(entity == HOME){
+	if(entity == HOME){
 		$('#' + 'home-tab-left').show();
 		//style.set(dom.byId('leftCol'),"display","none");
 	}
@@ -425,13 +432,9 @@ var param=function(name,value){
 var add = function(entity) {
     $('#' + "error-show-message").hide();
     $('#' + 'vehiclePost-show-ctr').hide();
-    $('#' + 'vehiclePost-create-ctr').show();
-
-	if(0 == userIsConnected) {
-		showErrMessage("Please Log in First");
-		return;
-	}
-/*	
+    if(entity == ENTITY_VEHICLE_POST) {
+    	$('#' + 'vehiclePost-create-ctr').show();
+    }
 	showHideCreate(entity, true);
 	$("span.readonly input").attr('readonly', false);
 	$("select[id$=order-user-list] > option").remove();
@@ -440,7 +443,7 @@ var add = function(entity) {
 	$("select[id$=state-list-vehicle-post] > option").remove();
 	$("select[id$=district-list-vehicle-post] > option").remove();
 	$("select[id$=company-list-vehicle-post] > option").remove();
-
+/*
 	if(ENTITY_VEHICLE_POST == entity){
 		alert("shwoing");
 		$('#vehiclePost-create-ctr').show();
@@ -532,6 +535,12 @@ var formValidate = function(entity){
 
 //future usage
 var savevehpost = function(entity) {
+
+	if(0 == userIsConnected) {
+		showErrMessage("Please Log in First");
+		return;
+	}
+
 	$('#' + "error-show-message").hide();
 	formdata = false;
 	// creating the data object to be sent to backend
@@ -596,6 +605,12 @@ var savevehpost = function(entity) {
 
 //function to save an entity
 var save = function(entity) {
+
+	if(0 == userIsConnected) {
+		showErrMessage("Please Log in First");
+		return;
+	}
+
 	$('#' + "error-show-message").hide();
 	// creating the data object to be sent to backend
 	var data = new Array();
@@ -622,8 +637,7 @@ var save = function(entity) {
 		data[i++] = new param("errorDetails", dijit.byId('errorDetails')
 				.getValue().replace("<br _moz_editor_bogus_node=\"TRUE\" />",
 						""));
-		data[i++] = new param("userId", userId + provider);
-
+		data[i++] = new param("userId", userId + provider);	
 	}
 	// setting action as PUT
 	data[data.length] = new param('action', 'PUT');
@@ -641,7 +655,8 @@ var save = function(entity) {
 				},
 				success : function(data) {
 					if (ENTITY_VEHICLE_POST == entity) {
-						$('#error-show-message').html(data);
+						//$('#error-show-message').html(data);
+						handleSaveVehiclePost(data);
 					}
 					showHideCreate(entity, false);
 				}
@@ -649,11 +664,21 @@ var save = function(entity) {
 	$('#' + entity + '-reset').click();
 }
 
+var handleSaveVehiclePost = function(data) {
+	//TODO: Create PopUp to post on Facebook and other Social Sites
+	//alert(data);	
+}
+
 //function to save an entity
 var save_old = function(entity) {
-	$('#' + "error-show-message").hide();
 
-		// creating the data object to be sent to backend
+	if(0 == userIsConnected) {
+		showErrMessage("Please Log in First");
+		return;
+	}
+
+	$('#' + "error-show-message").hide();
+	// creating the data object to be sent to backend
 	 var data=new Array();
 	// collecting the field values from the form
 	 var formEleList = $('form#'+entity+'-create-form').serializeArray();
@@ -703,6 +728,11 @@ var save_old = function(entity) {
 //function to edit entity
 var edit = function(entity, id){
 	$('#' + "error-show-message").hide();
+
+	if(0 == userIsConnected) {
+		showErrMessage("Please Log in First");
+		return;
+	}
 
 	var parameter=new Array();
 	if(ENTITY_COMPANY == entity) {
@@ -757,6 +787,12 @@ var cancel = function(entity) {
 
 //function to delete an entity
 var deleteEntity = function(entity,id,parentid) {
+
+	if(0 == userIsConnected) {
+		showErrMessage("Please Log in First");
+		return;
+	}
+
 	$('#' + "error-show-message").hide();
 	var parameter=new Array();
 	parameter[parameter.length]=new param('name',id);

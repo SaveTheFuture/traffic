@@ -78,7 +78,22 @@ public class CompanyServlet extends BaseServlet {
     String companyName = req.getParameter("companyName");
     String count = req.getParameter("count");
     String userId = req.getParameter("userId");
-    if(null == Company.createCompany(companyName,count,userId)) {
+    String address1 = req.getParameter("address1");
+    String address2 = req.getParameter("address2");
+    String city = req.getParameter("city");
+    String state = req.getParameter("state");
+    String phone = req.getParameter("phone");
+    String email = req.getParameter("email");
+    
+    
+	if(null == email || "".equals(email) || null==phone || "".equals(phone) || null==state || "".equals(state) || null==city || "".equals(city)
+			|| null==address2 || "".equals(address2) || null==address1 || "".equals(address1) || null == userId || "".equals(userId)
+			|| null ==companyName || "".equals(companyName) || null==count || "".equals(count)) {
+        resp.sendError(HttpServletResponse.SC_BAD_REQUEST, 
+        		"Invalid Parameters");
+	}
+
+    if(null == Company.createCompany(companyName,count,userId, address1, address2, city, state, phone, email)) {
         resp.sendError(HttpServletResponse.SC_BAD_REQUEST, 
         		"The Company " + companyName + " is already Registered by Someone Else");
     }

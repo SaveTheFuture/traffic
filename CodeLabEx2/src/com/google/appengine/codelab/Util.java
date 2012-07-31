@@ -178,6 +178,20 @@ public static Iterable<Entity> listEntities(String kind, String searchBy, String
     return pq.asIterable();
   }
 
+public static Iterable<Entity> listEntities(String kind, String searchBy1, String searchFor1, 
+		String searchBy2, String searchFor2) {
+    logger.log(Level.INFO, "Search entities based on search criteria");
+    Query query = new Query(kind);
+    if (searchFor1 != null && !"".equals(searchFor1)) {
+      query.addFilter(searchBy1, FilterOperator.EQUAL, searchFor1);
+    }
+    if (searchFor2 != null && !"".equals(searchFor2)) {
+        query.addFilter(searchBy2, FilterOperator.EQUAL, searchFor2);
+    }
+
+    PreparedQuery pq = datastore.prepare(query);
+    return pq.asIterable();
+  }
 
 
 	/***

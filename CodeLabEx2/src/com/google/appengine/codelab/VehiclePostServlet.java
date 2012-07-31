@@ -199,7 +199,6 @@ public class VehiclePostServlet extends BaseServlet {
     resp.setContentType("text/html");
     PrintWriter writer = resp.getWriter();
     writer.println(returnVal);
-
   }
 
   

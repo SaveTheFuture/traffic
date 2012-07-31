@@ -70,6 +70,7 @@ public class VehiclePost {
     Entity companyGlobalSubscriptionId = CompanyGlobalSubscriptionId.getCompanyGlobalSubscriptionId(uniqueId);
     String companyName = companyGlobalSubscriptionId.getProperty("companyName").toString();
     String imageUrl = null;
+    String returnMessage = null;
     
     vehiclePost.setProperty("companyName", companyName);
     vehiclePost.setProperty("errorDetails", errorDetails);
@@ -93,12 +94,12 @@ public class VehiclePost {
     vehiclePost.setProperty("incident_image",imageUrl);
     Util.persistEntity(vehiclePost);
     try {
-		sendMail(UserCompanySubscription.getAllUserListforCompany(companyName),vehiclePost);
+		returnMessage = sendMail(UserCompanySubscription.getAllUserListforCompany(companyName),vehiclePost);
 	} catch (MessagingException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-    return "Thanks For Sharing " + User.getSingleUser(userId).getProperty("fullName").toString() + "!"; 
+    return returnMessage; 
   }
 
   public static String createMailMessage(Entity vehiclePost) {
@@ -111,6 +112,9 @@ public class VehiclePost {
 	  mailBody += "<br></br>";
 	  mailBody += "<label> Company Name :<b> " + companyName + " </b></label>";
 	  mailBody += "<br></br>";
+	  mailBody += "<label> Sticker Name :<b> " + vehiclePost.getProperty("uniqueId").toString() + " </b></label>";
+	  mailBody += "<br></br>";
+
 	  mailBody += "<label> Error Details :<b>";
 	  mailBody += "<br></br>";
 	  mailBody +=  vehiclePost.getProperty("errorDetails").toString() + " </b></label>";
@@ -125,10 +129,10 @@ public class VehiclePost {
 	  return mailBody;
   }
   
-  private static void sendMail(Iterable<Entity> entities,Entity vehiclePost) throws MessagingException
+  private static String sendMail(Iterable<Entity> entities,Entity vehiclePost) throws MessagingException
   {
 	  if(null == entities) {
-		  return;
+		  return null;
 	  }
 	  String companyName = vehiclePost.getProperty("companyName").toString();
 	  String htmlBody  = createMailMessage(vehiclePost);  
@@ -185,6 +189,7 @@ public class VehiclePost {
       } catch (MessagingException e) {
           // ...
       }
+     return htmlBody;
   }
   
   public static Integer CheckVehiclePostUser(Entity vehiclePost,String userKey) {
