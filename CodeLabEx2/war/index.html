@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>Better Traffic, Happier Lives</title>
+<title>Save The Future </title>
  
   <link href="http://www.gstatic.com/codesite/ph/17444577587916266307/css/ph_core.css" rel="stylesheet" type="text/css" />
   <link href="http://code.google.com/css/codesite.pack.04102009.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dijit/themes/claro/claro.css" media="screen">
   <link type="text/css" rel="stylesheet" href="Blog.css">
+  <link type="text/css" rel="stylesheet" href="style.css">
   
     <script language="javascript" src='script/ajax.util.js'></script>
   <script language="javascript" src='script/jquery-1.6.min.js'></script>
   <script src="//connect.facebook.net/en_US/all.js"></script>
 	<!-- load dojo and provide config via data attribute -->
-	<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js"
+	<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.3/dojo/dojo.js"
 			data-dojo-config="async:true, parseOnLoad: true">
 	</script>
 
-		
 	<link rel="stylesheet" href="css/floom.css" type="text/css" media="screen" charset="utf-8" />
 	<script type="text/javascript" charset="utf-8" src="mootools-core-1.3-full-nocompat.js"></script>
 	<script type="text/javascript" charset="utf-8" src="mootools-more.js"></script>
@@ -88,10 +88,8 @@
 			<!-- TOP REGION MENU -->
 			
 				<div style="float:left; padding-left:1px;"><img src="images/logo.png"></div>
-				<h1> Save The Future </h1>
-				
-
-				<div id="tabs" style="padding-left:100px;padding-top:35px; font-family:Arial, Helvetica, sans-serif; font-size:15px; font-weight:bold; height:50px; text-decoration:none">
+				<h1 class="right-side"> Better Traffic, Happier Lives!</h1>
+				<div id="tabs" style="padding-left:100px;padding-top:35px; font-family:Arial, Helvetica, sans-serif; font-size:15px; font-weight:bold; height:50px; text-decoration:none;">
 					<hr>
 			 		<a  style="text-decoration:none" id="home" href="#home" >Home &nbsp;&nbsp;|&nbsp;&nbsp;</a>
       				<a  style="text-decoration:none" id="vehiclePost" href="#vehiclePost" >Traffic Violations &nbsp;&nbsp;|&nbsp;&nbsp;</a> 
@@ -248,13 +246,10 @@
   	<div class="create-ctr" id="vehiclePost-create-ctr">
   		<form dojoType="dijit.form.Form" name="vehiclePost-create-form" id="vehiclePost-create-form"
 			onsubmit="alert('Submitting')" enctype="multipart/form-data">
-			<h2>Report Violation</h2>
-			<br>
-			
 			<div class="formQuestion">
 				<span>Vehicle Details</span>
 			</div>
-			<div class="formAnswer">			
+			<div class="formAnswer">	
 				<label class="firstLabel" >Unique Name *</label>
 				<input type="text" name="uniqueId" id="uniqueId"   class="medium" required=false
 					dojoType="dijit.form.FilteringSelect" store="stickerMemoryStore" ucfirst="true" invalidMessage="Invalid Selection !!"/ >
@@ -292,13 +287,10 @@
  -->
 				<label class="firstLabel" for="dob">  Date Of Incident *</label>
 				<input id="date" name="date" dojoType="dijit.form.DateTextBox" required=true/>
-
 			</div>
-			
 			<div class="formQuestion">
 				<label for="description">Incident Details *</label>
 			</div>
-			
 			<div data-dojo-type="dijit.Editor" required=true id="errorDetails" name="errorDetails" data-dojo-props="onChange:function(){console.log('editor1 onChange handler: ' + arguments[0])},
 					plugins:['cut','copy','paste','|','bold','italic','underline','strikethrough','subscript','superscript','|', 'indent', 'outdent', 'justifyLeft', 'justifyCenter', 'justifyRight']">
 			</div>
@@ -445,18 +437,17 @@
   </div>
   </div>  
   
-			<div id="leftCol" class="centerPanel" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region: 'left', splitter: false" style="width: 30%; ">
+			<div id="leftCol" class="centerPanel" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region: 'left', splitter: false" style="width: 40%; ">
    				<!-- LEFT SECTION -->
   				<div class="g-unit" id="home-tab-left">
   				<!-- ********* HOME TAB *************-->
 <!--
-<div atr align="center">	
-	<div id="blinds-cont">
-		<div id="blinds"><em></em>
-		</div>
-	</div>
-</div>
--->
+					<div atr align="center">	
+						<div id="blinds-cont">
+							<div id="blinds"><em></em>
+							</div>
+						</div>
+					</div>			
 			
   					<div >
   					<h1 id = "left-heading1"> How This Site Works </h1>
@@ -482,7 +473,26 @@
         					</ol>
   						</p>
   					</div>
-  					
+-->
+	                <div class="main-txt-dv"><!--main-txt-dv-->
+						<strong> Why Should We Report ?</strong><br />
+						<span>1. </span>Because Life is Presious <br /></span>
+						<span>2. </span>Because We Deserve Better and Happeir Lives<br /></span>
+						<span>3. </span>Because Every Reported Violation get Maximum Visibility.<br /></span>
+					</div><!--end-main-txt-dv-->
+					
+	        		<table class="left-tab-img-tbl" cellspacing="0" cellpadding="0" style="border:none;">
+	  		   			<tbody>
+		            		<tr>
+          			  			<td style="border:none;"> 
+          			  				<img class="left-tab-img" src="images/current-stage.png">
+         			  			</td>
+         			  			<td style="border:none;"> 
+          			  				<img class="left-tab-img" src="images/final-stage.png">
+         			  			</td>
+        					</tr>
+	  			  		</tbody>
+		    		</table>
 				</div>	
 
   					<!-- ************ VEHICLE POST **********************-->

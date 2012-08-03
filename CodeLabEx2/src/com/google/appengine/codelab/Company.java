@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -39,15 +41,12 @@ public class Company {
 		  String address2, String city, String state, String phone, String email) throws IOException {
 	String lcompanyName = companyName.toLowerCase().replace('-', ' ').trim();  
     Entity company = Company.getCompany(lcompanyName);
-    Integer count = Integer.parseInt(subscriptionCount);
     if(null == company) {
-      Entity sticker =	StickerName.createStickerName(lcompanyName);
-      String stickerName = sticker.getProperty("companyName").toString();
       company = new Entity("Company", lcompanyName);
       company.setProperty("companyName", companyName);
       company.setProperty("vehicleCount",subscriptionCount);  
       company.setProperty("origUserId",userId);
-      company.setProperty("stickerName",stickerName);    
+      company.setProperty("stickerName","none");    
       company.setProperty("validated","false");
       company.setProperty("address1",address1);
       company.setProperty("address2",address2);
@@ -55,7 +54,6 @@ public class Company {
       company.setProperty("state",state);
       company.setProperty("phone",phone);
       company.setProperty("email",email);
-
       Util.persistEntity(company);
       return company;
     }
@@ -64,26 +62,27 @@ public class Company {
     } 
   }
 
-  public Entity  validateCompany(String companyName) throws IOException {
+  public static Entity  validateCompany(String companyName, String stickerName) throws IOException {
 	  Entity company = getCompany(companyName);
 	  if(null == company) {
 		  return null;
 	  }
-	  Integer i = 0;	
-	  Integer count = Integer.parseInt(company.getProperty("vehicleCount").toString());	
-      String stickerName = company.getProperty("stickerName").toString();
+	  StickerName.createStickerName(stickerName,companyName);
+
+	  Integer i = 0;
+	  Integer count = Integer.parseInt(company.getProperty("vehicleCount").toString());
       String userId = company.getProperty("origUserId").toString();
-      String lcompanyName = company.getProperty("lcompanyName").toString();
 
       for (i=1;i<count+1;i++) {
-    	  CompanyGlobalSubscriptionId.createCompanyGlobalSubscriptionId(lcompanyName, stickerName.concat("-"+i));
+    	  CompanyGlobalSubscriptionId.createCompanyGlobalSubscriptionId(companyName, stickerName.concat("-"+i));
       }
-      
+
       UserCompanySubscription.createUserCompanySubscription(userId, companyName);
       company.setProperty("validated","true");
+      company.setProperty("stickerName",stickerName);
+
       Util.persistEntity(company);
       return company;
-      
   /*
   else if(company.getProperty("origUserId").toString().equals(userId)){
     	Integer oldCount = Integer.parseInt(company.getProperty("vehicleCount").toString());
@@ -100,7 +99,7 @@ public class Company {
 */
   }
 
-  public Entity  updateCompany(String companyName,String additionCount) throws IOException {
+  public static Entity  updateCompany(String companyName,String additionCount) throws IOException {
 	  Entity company = getCompany(companyName);
 	  if(null == company) {
 		  return null;
@@ -135,6 +134,11 @@ public class Company {
     Iterable<Entity> entities = Util.listEntities("Company", "validated", "true");
     return entities;
   }
+
+  public static Iterable<Entity> getAllCompanysToValidate() {
+	    Iterable<Entity> entities = Util.listEntities("Company", "validated", "false");
+	    return entities;
+	  }
 
   public static Iterable<Entity> getAllCompanysforUser(String userId) {
 	    Iterable<Entity> entities = Util.listEntities("Company", "origUserId", userId,
@@ -179,6 +183,7 @@ public class Company {
 	    sb.append("]}");
 	    return sb.toString();
 	  }
+  
   public static String writeJSON(Entity result) {
 	  StringBuilder sb = new StringBuilder();
 	  sb.append("{\"data\": [");
@@ -199,4 +204,19 @@ public class Company {
 	  sb.append("]}");
 	  return sb.toString();
 	}
+
+public static void handleAdminPanel(HttpServletRequest req) throws IOException {
+	  String action = req.getParameter("action");
+	  String companyName = req.getParameter("companyName");
+	  
+	  if(action.equals("validate")) {
+		  String stickerName = req.getParameter("stickerName");
+		  validateCompany(companyName,stickerName);
+	  }
+	  if(action.equals("update")) {
+		  String additionalCount = req.getParameter("additionalCount");
+		  updateCompany(companyName,additionalCount);
+	  }
+}
+
 }

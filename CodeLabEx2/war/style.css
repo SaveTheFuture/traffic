@@ -1,34 +1,24 @@
-body {
-	font: 14px/1.5 helvetica-neue, helvetica, arial, san-serif;
-	padding:10px;
-}
-
-h1 {
-	margin-top:0;
-}
-
-#main {
-	width: 300px;
-	margin:auto;
-	background: #ececec;
-	padding: 20px;
-	border: 1px solid #ccc;
-}
-
-#image-list {
-	list-style:none;
-	margin:0;
-	padding:0;
-}
-#image-list li {
-	background: #fff;
-	border: 1px solid #ccc;
-	text-align:center;
-	padding:20px;
-	margin-bottom:19px;
-}
-#image-list li img {
-	width: 258px;
-	vertical-align: middle;
-	border:1px solid #474747;
-}
+body{ margin:0px; padding:0px;}
+*{ margin:0px; padding:0px;}
+.clear{ clear:both;}
+.outer-dv{ width:1036px; margin:auto; border:12px solid #CAE1F3; background:url(images/bg-img.png) repeat-x; background-color:#F5DB9E; height:auto; }
+.support{ font:16px/20px Arial, Helvetica, sans-serif; color:#FFFFFF; font-weight:bold; text-align:right; padding:20px 25px 0px 0px; z-index:-1000; }
+.support img{padding:0px 5px 0px 5px; }
+.f-like{ background:url(images/like-img.jpg) no-repeat; width:40px; height:20px; border:0px; margin:0px 5px 0px 0px; cursor:pointer;}
+.f-send{ background:url(images/send-img.jpg) no-repeat; width:50px; height:20px; border:0px; margin:0px 5px 0px 0px; cursor:pointer;}
+.top-menu{ z-index:1000;}
+.welcome-txt{ width:197px; float:left; font:18px/20px Georgia, "Times New Roman", Times, serif; color:#000000; font-weight:bold; text-align:center; position:relative; top:-10px;}
+.facebook-login-butn{ margin:12px 0px 0px 0px; background:url(images/facebook-login.jpg) no-repeat; width:149px; height:22px; border:0px; font:12px/20px Arial, Helvetica, sans-serif; color:#FFFFFF; padding:0px 0px 0px 16px; cursor:pointer;}
+.top-menu-link{ width:770px; height:9px; float:left; background:url(images/top-menu-bg.png) no-repeat; width:770px; height:88px; z-index:1000; position:relative; top:-40px; }
+.top-menu-link ul{ width:100%; padding:60px 0px 0px 120px;}
+.top-menu-link ul li{ position:relative; float:left; display:inline; width:20%;}
+.top-menu-link ul li a{ width:100%; font:12px/20px Arial, Helvetica, sans-serif; font-weight:bold; text-align:center; color:#000000; display:block; text-decoration:none;}
+.main-txt-dv{ font:15px/32px Georgia, "Times New Roman", Times, serif; color:#000000; padding:0px 0px 0px 25px; position:relative; top:-15px; height:50%; margin-top:5%; }
+.main-txt-dv img{ position:relative; top:-225px; right:25px;}
+.main-txt-dv strong{ font:22px/32px Georgia, "Times New Roman", Times, serif; color:#05207A; font-weight:bold;}
+.main-txt-dv span{ font:15px/32px Georgia, "Times New Roman", Times, serif; color:#FF0000; width:20px; float:left;}
+.today-traffic-img{ position:relative; top:-12px;}
+.left-tab-img{margin-top:5%;width:100%;height:80%}
+.left-tab-img-tbl {height:50%}
+.right-side{align:right}
+.btm{ background:url(images/bottom-img.png) no-repeat; height:22px; margin:20px 0px 0px 6px; width:1066px;}

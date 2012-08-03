@@ -105,9 +105,13 @@ public class CompanyServlet extends BaseServlet {
 	 */
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		logger.log(Level.SEVERE, "Deleting Company Not Supported");
+
+/*	  
 	logger.log(Level.INFO, "Deleting Company");
     String companyName = req.getParameter("name");
     Company.deleteCompany(companyName);
+*/
 }
 
 	/**
@@ -124,5 +128,4 @@ public class CompanyServlet extends BaseServlet {
       return;
     }
   }
-  
 }

@@ -22,9 +22,7 @@ public class StickerName {
 	 *          : Registration Number of Company
 	 * @throws IOException 
 	 */
-  public static Entity createStickerName(String companyName) throws IOException {
-	  String lcompanyName = companyName.toLowerCase().replace('-', ' ').trim();  
-	  String stickerName = lcompanyName;
+  public static Entity createStickerName(String stickerName, String companyName) throws IOException {
       Entity sticker = new Entity("StickerName", stickerName);
       sticker.setProperty("companyName", companyName);
       Util.persistEntity(sticker);
