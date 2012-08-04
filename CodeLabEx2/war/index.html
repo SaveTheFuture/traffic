@@ -78,7 +78,6 @@
 		<div id="appLayout" class="demoLayout" data-dojo-type="dijit.layout.BorderContainer" data-dojo-props="design:'headline'" >
 			<!-- BOTTOM REGION MENU -->
 			<div class="edgePanel" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region: 'bottom'" style="background-color:#E6E6FA;">
-			
 				<div id="tabs" style="padding-right:100px;float:right; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold;">
 			 		<a  style="text-decoration:none" id="contact" href="#contact" >Contact Us &nbsp;&nbsp;|&nbsp;&nbsp;</a>
 			 		<a  style="text-decoration:none" id="about" href="#about" >About Us </a>
@@ -94,7 +93,6 @@
 			 		<a  style="text-decoration:none" id="home" href="#home" >Home &nbsp;&nbsp;|&nbsp;&nbsp;</a>
       				<a  style="text-decoration:none" id="vehiclePost" href="#vehiclePost" >Traffic Violations &nbsp;&nbsp;|&nbsp;&nbsp;</a> 
 	  				<a  style="text-decoration:none" id="user" href="#user">User Settings &nbsp;&nbsp;|&nbsp;&nbsp;</a>
-	  				<a  style="text-decoration:none" id="addPost" href="#ReportViolation" >Report Violation &nbsp;&nbsp;|&nbsp;&nbsp;</a>
 	  				<a  style="text-decoration:none" id="company" href="#Register">Register </a>
 					<hr>
 				</div>
@@ -291,10 +289,14 @@
 			<div class="formQuestion">
 				<label for="description">Incident Details *</label>
 			</div>
+<!--			********** ISSUE working on IE, NEED TO FIX ***************
 			<div data-dojo-type="dijit.Editor" required=true id="errorDetails" name="errorDetails" data-dojo-props="onChange:function(){console.log('editor1 onChange handler: ' + arguments[0])},
 					plugins:['cut','copy','paste','|','bold','italic','underline','strikethrough','subscript','superscript','|', 'indent', 'outdent', 'justifyLeft', 'justifyCenter', 'justifyRight']">
 			</div>
-
+ -->
+ 			<div data-dojo-type="dijit.form.Textarea" required=true id="errorDetails" name="errorDetails" rows="3">
+			</div>
+ 
 			<div class="formAnswer">
 				<input name="blobkey" id="blobkey" type="hidden" value="blobkey"></input>
 			</div>
@@ -331,7 +333,33 @@
   					<div class="g-unit" id="user-tab">
   					</div>
   
+  					<div class="main-txt-dv" id="about-tab">
+						<div style="text-decoration:underline;text-align:center;">
+							<strong>It Begins With Us</strong><br /><br />
+						</div>
+						<div style=text-align:left;">
+						
+							Hello Friends, <br /> </span>
+							We are a Group of People who love India. We have a strong believe that if we join our hands, we can make India a better Country to Live. 
+							<br />
+							We request you to join our hands in cleaning up the Traffic System. If we all come together, we can achieve this.
+							<br />
+							We Promise you that every violation that you report here will get maximum visibility and will be acted upon.					
+							<br />
+							So come and join our Hands and Help Spread the word. <br />
+							<br />
+						</div>
+						<strong>Save The Future Team </strong><br />
+  					</div>
   
+  					<div class="main-txt-dv" id="contact-tab">
+  						<div style="text-decoration:underline;text-align:center;">
+							<strong>Save The Future Team</strong><br /> <br />
+						</div>
+						<div style=text-align:left;">
+							For any Comments and Suggestions, You Can Reach Us <a href="mailto:admin@savethefuture.in"> Here </a>
+						</div>	
+  					</div>
   
   
   
@@ -441,44 +469,13 @@
    				<!-- LEFT SECTION -->
   				<div class="g-unit" id="home-tab-left">
   				<!-- ********* HOME TAB *************-->
-<!--
-					<div atr align="center">	
-						<div id="blinds-cont">
-							<div id="blinds"><em></em>
-							</div>
-						</div>
-					</div>			
-			
-  					<div >
-  					<h1 id = "left-heading1"> How This Site Works </h1>
-  						<p>
-  							<ol>
-          						<li>
-          						 You See "Person A" Driving Improperly and You Report on This WebSite
-            					</li>
-          						<li>
-          							This Will Spread Like a Virus Using Social Networking Sites!, With Good Chances that that 
-          							somebody in the social circle of "Person A " Will See This. 
-            					</li>
-          						<li>
-          							Any Company, School or Individual Can Keep an Eye on their Vehicle by Registering With Us.
-            					</li>
-          						<li>          							
-          							We Can Also Issue the Vehicle Stickers that have Uniqe and Easy to Remember Names.
-          							This will Help People in Reporting any Violation. 
-            					</li>
-          						<li>
-          							Any Violation  reported will be notified via email.
-            					</li>
-        					</ol>
-  						</p>
-  					</div>
--->
 	                <div class="main-txt-dv"><!--main-txt-dv-->
-						<strong> Why Should We Report ?</strong><br />
-						<span>1. </span>Because Life is Presious <br /></span>
-						<span>2. </span>Because We Deserve Better and Happeir Lives<br /></span>
-						<span>3. </span>Because Every Reported Violation get Maximum Visibility.<br /></span>
+						<strong> 5 Reasons Why We Should Report</strong><br />
+						<span>1. </span>Because At least 14 People Die Every Hour due to Rash Driving in India. <br /></span>
+						<span>2. </span>Because Traffic causes atleast 10 Billion USD Loss to India Every Year. <br /></span>
+						<span>3. </span>Because Every Single Life is Presious <br /></span>
+						<span>4. </span>Because We Deserve Better and Happeir Lives<br /></span>
+						<span>5. </span>Because Every Reported Violation get Maximum Visibility.<br /></span>
 					</div><!--end-main-txt-dv-->
 					
 	        		<table class="left-tab-img-tbl" cellspacing="0" cellpadding="0" style="border:none;">
@@ -554,7 +551,7 @@ function( parser, borderContainer,contentPane,dataGrid,jsonRestStore,ready){
 
 
 require(["dojo/dom", "dojo/dom-style","dojo/store/Memory","dijit/form/FilteringSelect",
-	"dijit/form/ComboBox", "dijit/Editor", "dijit/form/TextBox","dijit/form/Form", 
+	"dijit/form/ComboBox", "dijit/form/Textarea", "dijit/form/TextBox","dijit/form/Form", 
 	"dijit/form/CheckBox","dijit/form/DateTextBox","dijit/form/Button","dojo/domReady!"], 
 	function(dom1,style1,Memory) {
 	var cityStore = new Memory();

@@ -13,12 +13,12 @@ body{ margin:0px; padding:0px;}
 .top-menu-link ul{ width:100%; padding:60px 0px 0px 120px;}
 .top-menu-link ul li{ position:relative; float:left; display:inline; width:20%;}
 .top-menu-link ul li a{ width:100%; font:12px/20px Arial, Helvetica, sans-serif; font-weight:bold; text-align:center; color:#000000; display:block; text-decoration:none;}
-.main-txt-dv{ font:15px/32px Georgia, "Times New Roman", Times, serif; color:#000000; padding:0px 0px 0px 25px; position:relative; top:-15px; height:50%; margin-top:5%; }
+.main-txt-dv{ font:15px/32px Georgia, "Times New Roman", Times, serif; color:#000000; padding:0px 0px 0px 25px; position:relative; top:-15px; height:45%; margin-top:2%; }
 .main-txt-dv img{ position:relative; top:-225px; right:25px;}
 .main-txt-dv strong{ font:22px/32px Georgia, "Times New Roman", Times, serif; color:#05207A; font-weight:bold;}
 .main-txt-dv span{ font:15px/32px Georgia, "Times New Roman", Times, serif; color:#FF0000; width:20px; float:left;}
 .today-traffic-img{ position:relative; top:-12px;}
-.left-tab-img{margin-top:5%;width:100%;height:80%}
-.left-tab-img-tbl {height:50%}
+.left-tab-img{width:100%;height:80%}
+.left-tab-img-tbl {height:45%}
 .right-side{align:right}
 .btm{ background:url(images/bottom-img.png) no-repeat; height:22px; margin:20px 0px 0px 6px; width:1066px;}

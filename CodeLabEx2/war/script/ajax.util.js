@@ -5,7 +5,8 @@ var ENTITY_PRODUCT='vehicle';
 var ENTITY_ITEM='item';
 var ENTITY_ORDER='order';
 var ENTITY_ADD_POST='addPost';
-
+var ENTITY_ABOUT = 'about';
+var ENTITY_CONTACT = 'contact';
 var ENTITY_USER_VEHICLE_SUBSCRIPTION='userVehicleSubscription';
 var ENTITY_USER_COMPANY_SUBSCRIPTION='userCompanySubscription';
 var ENTITY_COMPANY_GLOBAL_SUBSCRIPTION_ID = 'companyGlobalSubscriptionId'
@@ -59,7 +60,7 @@ var init = function(dom1,style1,cityStore,companyStore,vehicleStore,stickerStore
 	$('#tabs a').click(function(event) {
 		showTab(event.currentTarget.id);
 	});
-	
+
 	document.getElementById('fb-logout').onclick = function() {
 		fbLogout();
 	};
@@ -67,7 +68,7 @@ var init = function(dom1,style1,cityStore,companyStore,vehicleStore,stickerStore
 	document.getElementById('fb-post').onclick = function() {
 		fbPost();
 	};
-	
+
 	//$('#' + 'vehiclePost-show-ctr').hide();
 	//vehiclePostStore = new dojox.data.JsonRestStore({target:"/vehiclePost"});
 	//populateList(ENTITY_VEHICLE,null);
@@ -75,7 +76,7 @@ var init = function(dom1,style1,cityStore,companyStore,vehicleStore,stickerStore
 	//populateList(ENTITY_CITY,null);
 	//populateList(ENTITY_ID,null);
     //$('#' + "fb-post").hide();
-	$('#addPost').hide();
+	//$('#addPost').hide();
 	style.set(dom.byId('loader'),"display","none");
 }
 
@@ -159,20 +160,27 @@ var fbUserDetail = function(response) {
 
 //function to show the tab
 var showTab = function(entity) {
-	if(entity == HOME) {
-		//createBlinds();
+	$('#contact-tab').hide();	
+	$('#about-tab').hide();	
+	$('#home-tab').hide();
+	$('#user-tab').hide();
+	$('#userVehicleSubscription-tab').hide();
+	$('#userCompanySubscription-tab').hide();
+	$('#vehiclePost-show-ctr').hide();
+	$('#vehiclePost-create-ctr').hide();
+
+	if(ENTITY_ABOUT == entity) {
+		$('#about-tab').show();	
+		return;
 	}
+	if(ENTITY_CONTACT == entity) {
+		$('#contact-tab').show();	
+		return;
+	}
+	
 	if(ENTITY_VEHICLE_POST != entity) {
 		showAddPost = 0;
 	}
-	/*
-	if((ENTITY_COMPANY == entity) || (ENTITY_ADD_POST == entity)) {
-		if(0 == userIsConnected) {
-			showErrMessage("Please Log in First");
-			return;
-		}
-	}
-	*/
 	if((ENTITY_USER == entity) || (ENTITY_VEHICLE_POST == entity)) {
 		populateMemoryStore(ENTITY_COMPANY);
 	}
@@ -187,13 +195,6 @@ var showTab = function(entity) {
 		populateMemoryStore(ENTITY_COMPANY_GLOBAL_SUBSCRIPTION_ID);
 		return;
 	}
-	/*
-	if(ENTITY_VEHICLE_POST == entity) {
-		$('#addPost').show();
-	} else {
-		$('#addPost').hide();
-	}
-	*/
 	$('#' + "error-show-message").hide();
 
 	currentEntity = entity;
@@ -223,9 +224,12 @@ var showTab = function(entity) {
 		//style.set(dom.byId('leftCol'),"display","inline");
 		//$('#' + 'vehiclePost-show-ctr').show();
 	}
-	if(entity == HOME){
+	if((entity != ENTITY_VEHICLE_POST)){
 		$('#' + 'home-tab-left').show();
 		//style.set(dom.byId('leftCol'),"display","none");
+	}
+	else {
+		$('#' + 'home-tab-left').hide();		
 	}
 }
 
