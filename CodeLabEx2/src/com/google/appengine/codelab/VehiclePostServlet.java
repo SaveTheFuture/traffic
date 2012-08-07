@@ -49,7 +49,7 @@ public class VehiclePostServlet extends BaseServlet {
 	 * Get the requested company entities in JSON format
 	 */
   
-  public static final int PAGE_SIZE = 8;
+  public static final int PAGE_SIZE = 6;
 
   @SuppressWarnings("deprecation")
   public void doGet(HttpServletRequest req, HttpServletResponse resp)

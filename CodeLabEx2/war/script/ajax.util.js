@@ -55,7 +55,7 @@ var init = function(dom1,style1,cityStore,companyStore,vehicleStore,stickerStore
 	fbInit();
 	//showing the home tab on initializing
 	showTab(HOME);
-	showAddPost = 1;
+	showAddPost = 0 //change this to 1 for showing Add post on HOME page;
 	//adding event listeners to the tabs
 	$('#tabs a').click(function(event) {
 		showTab(event.currentTarget.id);
@@ -77,6 +77,7 @@ var init = function(dom1,style1,cityStore,companyStore,vehicleStore,stickerStore
 	//populateList(ENTITY_ID,null);
     //$('#' + "fb-post").hide();
 	//$('#addPost').hide();
+	$('#leftCol').hide();
 	style.set(dom.byId('loader'),"display","none");
 }
 
@@ -164,25 +165,40 @@ var showTab = function(entity) {
 	$('#about-tab').hide();	
 	$('#home-tab').hide();
 	$('#user-tab').hide();
+	$('#company-tab').hide();
 	$('#userVehicleSubscription-tab').hide();
 	$('#userCompanySubscription-tab').hide();
 	$('#vehiclePost-show-ctr').hide();
 	$('#vehiclePost-create-ctr').hide();
+	$('#leftCol').hide();	
+	$('#vehicle-table').show();
+	$('#vehicle-table-vsplitter').hide();	
+	
 
-	if(ENTITY_ABOUT == entity) {
+	if(ENTITY_ABOUT == entity) {		
 		$('#about-tab').show();	
+		$('#vehicle-table').hide();	
 		return;
 	}
+
+	
 	if(ENTITY_CONTACT == entity) {
 		$('#contact-tab').show();	
+		$('#vehicle-table').hide();	
 		return;
 	}
+
 	
 	if(ENTITY_VEHICLE_POST != entity) {
 		showAddPost = 0;
 	}
+
 	if((ENTITY_USER == entity) || (ENTITY_VEHICLE_POST == entity)) {
 		populateMemoryStore(ENTITY_COMPANY);
+	}
+
+	if((ENTITY_ADD_POST == entity) || (ENTITY_VEHICLE_POST == entity)) {
+		$('#vehicle-table-vsplitter').show();
 	}
 	if(ENTITY_ADD_POST == entity) {
 		$('#home-tab').hide();
@@ -218,12 +234,15 @@ var showTab = function(entity) {
 	showHideCreate(entity, false);
 	if(entity!=HOME)
 		$('#'+entity+'-search-reset').click();
-	
+/*	
 	if ((entity == ENTITY_VEHICLE_POST) || (entity==HOME)){
 		showTab(ENTITY_ADD_POST);
-		//style.set(dom.byId('leftCol'),"display","inline");
-		//$('#' + 'vehiclePost-show-ctr').show();
 	}
+*/
+	if ((entity == ENTITY_VEHICLE_POST)){
+		showTab(ENTITY_ADD_POST);
+	}
+
 	if((entity != ENTITY_VEHICLE_POST)){
 		$('#' + 'home-tab-left').show();
 		//style.set(dom.byId('leftCol'),"display","none");

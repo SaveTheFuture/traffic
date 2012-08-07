@@ -1,7 +1,7 @@
 body{ margin:0px; padding:0px;}
 *{ margin:0px; padding:0px;}
 .clear{ clear:both;}
-.outer-dv{ width:1036px; margin:auto; border:12px solid #CAE1F3; background:url(images/bg-img.png) repeat-x; background-color:#F5DB9E; height:auto; }
+.outer-dv{  margin:auto; border:12px solid #CAE1F3; background:url(images/bg-img.png) repeat-x; background-color:#F5DB9E; height:auto; }
 .support{ font:16px/20px Arial, Helvetica, sans-serif; color:#FFFFFF; font-weight:bold; text-align:right; padding:20px 25px 0px 0px; z-index:-1000; }
 .support img{padding:0px 5px 0px 5px; }
 .f-like{ background:url(images/like-img.jpg) no-repeat; width:40px; height:20px; border:0px; margin:0px 5px 0px 0px; cursor:pointer;}
@@ -13,12 +13,14 @@ body{ margin:0px; padding:0px;}
 .top-menu-link ul{ width:100%; padding:60px 0px 0px 120px;}
 .top-menu-link ul li{ position:relative; float:left; display:inline; width:20%;}
 .top-menu-link ul li a{ width:100%; font:12px/20px Arial, Helvetica, sans-serif; font-weight:bold; text-align:center; color:#000000; display:block; text-decoration:none;}
-.main-txt-dv{ font:15px/32px Georgia, "Times New Roman", Times, serif; color:#000000; padding:0px 0px 0px 25px; position:relative; top:-15px; height:45%; margin-top:2%; }
+.main-txt-dv{ font:15px/32px Georgia, "Times New Roman", Times, serif; color:#000000; padding:0px 0px 0px 25px; position:relative; top:-15px; margin-top:2%}
 .main-txt-dv img{ position:relative; top:-225px; right:25px;}
 .main-txt-dv strong{ font:22px/32px Georgia, "Times New Roman", Times, serif; color:#05207A; font-weight:bold;}
 .main-txt-dv span{ font:15px/32px Georgia, "Times New Roman", Times, serif; color:#FF0000; width:20px; float:left;}
 .today-traffic-img{ position:relative; top:-12px;}
-.left-tab-img{width:100%;height:80%}
-.left-tab-img-tbl {height:45%}
+.left-tab-img{width:100%;height:80%;margin-top:40%;}
+.left-tab-img-2{width:100%;height:80%;}
+.vehicle-table-vsplitter{border:none;background:url(images/bg-img-2.png) repeat-y;width:10%;}
+
 .right-side{align:right}
-.btm{ background:url(images/bottom-img.png) no-repeat; height:22px; margin:20px 0px 0px 6px; width:1066px;}
+.btm{ background:url(images/bottom-img.png); height:22px; margin:20px 0px 0px 6px; width:100%;}
