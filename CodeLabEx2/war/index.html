@@ -2,297 +2,406 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 <title>Save The Future </title>
- 
-  <link href="http://www.gstatic.com/codesite/ph/17444577587916266307/css/ph_core.css" rel="stylesheet" type="text/css" />
-  <link href="http://code.google.com/css/codesite.pack.04102009.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dijit/themes/claro/claro.css" media="screen">
-  <link type="text/css" rel="stylesheet" href="Blog.css">
-  <link type="text/css" rel="stylesheet" href="style.css">
-  
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dijit/themes/claro/claro.css" media="screen">
+<link href="style.css" rel="stylesheet" type="text/css" />
+
     <script language="javascript" src='script/ajax.util.js'></script>
   <script language="javascript" src='script/jquery-1.6.min.js'></script>
-  <script src="//connect.facebook.net/en_US/all.js"></script>
+    <script src="//connect.facebook.net/en_US/all.js"></script>
 	<!-- load dojo and provide config via data attribute -->
-	<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.3/dojo/dojo.js"
+	<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js"
 			data-dojo-config="async:true, parseOnLoad: true">
 	</script>
-
-	<link rel="stylesheet" href="css/floom.css" type="text/css" media="screen" charset="utf-8" />
-	<script type="text/javascript" charset="utf-8" src="mootools-core-1.3-full-nocompat.js"></script>
-	<script type="text/javascript" charset="utf-8" src="mootools-more.js"></script>
-	<script type="text/javascript" charset="utf-8" src="Source/floom.js"></script>
-<!--	
-	<script type="text/javascript" charset="utf-8">
-		window.addEvent('domready', function(e){
-			// option 1		
-			var slides = [
-				{
-					image: 'traffic_original_c.jpg',
-					caption: 'Tired with Traffic Troubles  ?'
-					
-				},
-				{
-					image: 'final_state.jpg',
-					caption: 'Want to See Your CityLike This ?'
-					
-				},
-
-				{
-					image: 'process.jpg',
-					caption: 'We Have the Solution !!!'
-					
-				},
-			];
-			
-			// option 2
-			// var slides = $$('#blinds img');
-
-			$('blinds').floom(slides, {
-				slidesBase: 'slides/',
-				sliceFxIn: {
-					left: [20, 0]
-				}
-			});
-			
-		});
-	</script>
--->
-
-
-<!-- Place this render call where appropriate -->
-<script type="text/javascript">
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
-	
-
+  
 </head>
-	<body class="claro">	
-	<div id="fb-root"></div>
-	<div id="loader"><div id="loaderInner"></div></div>
-		<div id="appLayout" class="demoLayout" data-dojo-type="dijit.layout.BorderContainer" data-dojo-props="design:'headline'" >
-			<!-- BOTTOM REGION MENU -->
-			<div class="edgePanel" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region: 'bottom'" style="background-color:#E6E6FA;">
-				<div id="tabs" style="padding-right:100px;float:right; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold;">
-			 		<a  style="text-decoration:none" id="contact" href="#contact" >Contact Us &nbsp;&nbsp;|&nbsp;&nbsp;</a>
-			 		<a  style="text-decoration:none" id="about" href="#about" >About Us </a>
-				</div>
-			</div>			
-			<div class="edgePanel" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region: 'top'" style="background-color:white;">
-			<!-- TOP REGION MENU -->
-				<div style="float:left; padding-left:1px;"><img src="images/logo.png"></div>
-				<h1 class="right-side"> Better Traffic, Happier Lives!</h1>
-				<div id="tabs" style="padding-left:100px;padding-top:35px; font-family:Arial, Helvetica, sans-serif; font-size:15px; font-weight:bold; height:50px; text-decoration:none;">
-					<hr>
-			 		<a  style="text-decoration:none" id="home" href="#home" >Home &nbsp;&nbsp;|&nbsp;&nbsp;</a>
-      				<a  style="text-decoration:none" id="vehiclePost" href="#vehiclePost" >Traffic Violations &nbsp;&nbsp;|&nbsp;&nbsp;</a> 
-	  				<a  style="text-decoration:none" id="user" href="#user">User Settings &nbsp;&nbsp;|&nbsp;&nbsp;</a>
-	  				<a  style="text-decoration:none" id="company" href="#Register">Register </a>
-					<hr>
-				</div>
-<!--
-				<hr>
-			 	<div id="tabs" style="background-color:white;padding-left:100px;padding-top:35px; font-family:Arial, Helvetica, sans-serif; font-size:15px; font-weight:bold; height:50px;">
-			 		<a id="home" href="#home" >Home</a>
-      				<a id="vehiclePost" href="#vehiclePost" >Traffic Violations</a> 
-	  				<a id="user" href="#user">User Settings</a>
-	  				<a id="addPost" href="#ReportViolation" >Report Violation</a>
-	  				<a id="company" href="#Register">Register</a>
-  				</div>
-  				<hr>
--->
-			</div>
-			<div class="centerPanel" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region: 'right'" style="width: 15%;overflow:hidden;">
-				<!-- RIGHT REGION -->
-					<div class ="message" id="user-show-message" >
-					</div>
-					<div>&nbsp;</div>
-					<br></br>
-				
-				<div class="fb-login-button" id ="fb-login-button" scope="email,publish_actions" >Login with Facebook	</div>	
-       			<button id="fb-logout">logout()</button>
-				<div>&nbsp;</div>
-				<div>&nbsp;</div>
-<!--				
-				<h2 id="support-tag"> Support Us On </h2>
-				<div>&nbsp;</div>
-				<div>&nbsp;</div>
-					
-				<div class="fb-like" data-href="www.savethefuture.in" data-send="true" 
-					data-layout="button_count" data-width="20%" data-show-faces="false">
-				</div>	
-				<div>&nbsp;</div>
-				<div>&nbsp;</div>
-			
+<body class="claro">
+<div id="loader"><div id="loaderInner"></div></div>
+
+ <!--wrapper-->
+ <div id="wrapper">
  
-				Place this tag where you want the +1 button to render
-				<div class="g-plusone" data-annotation="inline" data-width="" callback="HallOfShame" data-href="http://localhost:8888/"></div>
--->
- 			</div>
+ <!--navigation-->
+ <div id="navigation">
+ 
+ <!--main_navigation-->
+ <div id="main_navigation">
+ <!--navi_left-->
+ <div id="navi_left">
+  <div id="tabs">
+  <ul>
+ <li><a id="home" href="#home">Home</a></li>
+ <li><a id="vehiclePost" href="#vehiclePost">Traffic Violations</a></li>
+ <li><a id="user" href="#user">User Settings</a></li>
+ <li><a id="contact" href="#contact">Contact Us</a></li>
+ <li> <a id="about" href="#about">About Us</a></li>
+ <li> <a id="contact" href="#Register">Register</a></li>
+ 
+ </ul>
+ </div>
+ </div>
+ <!--navi_left-->
+ 
+<!--navi_right-->
+<div id="navi_right">
+  <ul>
+    <li><a id ="user_name"></a></li>
+    <li><a class="fb-login-button" id ="fb-login-button" style="cursor:pointer"; scope="email,publish_actions" onclick="fbLogin()">Login with Facebook </a></li>
+    <li><a id ="fb-logout" style="cursor:pointer";  onclick="fbLogout()">Logout </a></li>
+  </ul>
+  </div> 
+ <!-- navi_right close-->
+ </div>
 
-			<div class="centerPanel" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region: 'center'" style="">
-						<div class ="message" id="error-show-message" >
-    					</div>
-				<!-- CENTRAL REGION -->  
-  				<div  id="gc-pagecontent" >
-  					<!-- home page content -->
-  					<div class="g-unit" id="home-tab">  					
-  						<div class="main-txt-dv"><!--main-txt-dv-->
-							<strong> 5 Reasons Why We Should Report</strong><br />
-							<span>1. </span>Because At least 14 People Die Every Hour due to Rash Driving in India. <br /></span>
-							<span>2. </span>Because Traffic causes atleast 10 Billion USD Loss to India Every Year. <br /></span>
-							<span>3. </span>Because Every Single Life is Presious! <br /></span>
-							<span>4. </span>Because We Deserve Better and Happier Lives<br /></span>
-							<span>5. </span>Because Every Reported Violation get Maximum Visibility.<br /></span>
-							<img src="images/final-stage.png" align="right"><br />
-						</div><!--end-main-txt-dv-->
-						<div class="today-traffic-img"><img src="images/current-stage.png"></div>
-  					</div>
-<!-- ******************************************* Start Create Company******************************************* -->
+ 
+ <!--main_navigation close-->
+ 
+ </div>
+ <!--navigation-->
+ 
+ 
+  <!--main_wrapper-->
+ <div id="main_wrapper">
+ 
+<!-- header-->
+ <div id="header">
+ <!--hed_left-->
+ <div id="hed_left">
+ <p class="l_text">
+ Better Traffic,
+ </p>
+ 
+ <a href="#home"> <span class="logo">
+ </span> </a>
+  <p class="l_text">
+Happier Lives!
+ </p>
+ </div>
+ <!--hed_left close-->
+ 
+  <div id="hed_right">
+  
+  
+  <!--search-->
+   <form name="input" actin="html_form_action.asp" method="get">
+  <span class="search_box">
+ <!-- search_left-->
+ <div id="search_left">
+  <input type="text" value=" Search Company" id="edit-search-theme-form" name="form_id" size="25px" height="12px"/>
+  
+  </div>
+  <!-- search_left-->
+  
+  <!-- search_right-->
+  <div id="search_right">
+   <a href="#"><img src="images/search_b.png"/></a>
+  </div>
+  <!-- search_right-->
+   </span>
+  <!--search-->
+  </form>
+  
+ </div>
+   <!-- search_right close-->
+ 
+ </div>
+<!-- header close-->
+       				<div id="contact-tab">
+<div id="content">
+      
+     <!-- new-content-->
+     <div id="new-content">
+     
+     <!--rectengal-->
+     <div id="rectengal">
+     <!--rectengal-left-->
+     <div id="rectengal-left">
+      <p>For any Comments, Suggestions and Registration Queries Please Fill the Below Form Or Email Us <a href="mailto:admin@savethefuture.in"> Here</p>
+      
+     </div>
+     <!--rectengal-left close-->
+     <!--rectengal-right-->
+     <div id="rectengal-right">
+     
+      <a href="#"><span class="save-battan">
+      <span class="sft">Save The Future Team</span>
+      </span></a>
+      </div>     
+     <!--rectengal-right-->
+     </div>
+      <!--rectengal close-->
+      <!--r_top-->
+      <div id="r_top">
+     <ul>
+     <li>Contact</li>
+     </ul>
+      </div>
+      <!--r_top close-->
+      <!--contact-form-->
+     <div id="contact-form">
+      <!--center-form-->
+     <div id="center-form">
+    
+      <form method="post" name="catalog" action="">
+       <ul>
+       <li><font size="2" face="Verdana">First Name:</font></li>
+       <li><input id="FirstName" type="text" size="0" maxlength="250" name="FirstName"></li>
+       <li><font size="2" face="Verdana">Last Name:</font></li>
+       <li><input id="LastName" type="text" size="0" maxlength="250" name="LastName"></li>
+       <li></li>
+        <li><font size="2" face="Verdana">Company Name:</font></li>
+       <li><input id="CompanyName" type="text" size="0" maxlength="250" name="CompanyName"></li>
+       <li></li>
+       
+       <li><font size="2" face="Verdana">Phone Number</font></li>
+        <li><input id="Address1" type="text" size="0" maxlength="250" name="Address1"></li>
+        <li><form method="post" name="email" action="signup.php"></li>
+        
+       <li><font size="2" face="Verdana">Email:</font></li>
+       <li> <input id="EmailAddress" type="text" value="" size="0" maxlength="250" name="EmailAddress"></li>
+        <li><input type="hidden" name="action" value="email"></li>
+       <li><label>Comments / Questions:</label></li>
+       <li> <textarea>&nbsp;</textarea></li>
+       </ul>
+       </form>
+       
+       
+       <div id="battans">
+            <a href="#">
+           <span class="s_battan">
+           <p>Submit</p>
+        </span>
+           </a>
+          <a href="#">
+          <span class="s_battan">
+          <p>Reset</p>
+          </span>
+            </a>
+          </div>
+       
+         </div>
+         <!--center-form close-->
+         
+         
+         
+      </div> 
+     <!--contact-form close-->
+     
+     </div>
+      <!-- new-content close-->
+     
+     
+    
+     
+    
+    
+    
+    
+<!--content close-->
+     </div>
+       					</div>
 
-					<div class="g-unit" id="company-tab">
-						<!-- search container -->
-   						<div class="gsc-search-box" id="company-search-ctr">
-   							<!-- section title -->
-   							<h2>Company Registration</h2>
-   								<form name="company-search-form" id="company-search-form">
-            						<input type="button" value="Register Company" onclick="add('company')" class="gsc-search-button" />
-            						<input type="reset" id="userVehicleSubscription-search-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
-							    </form>
-   						</div>
-   						<!-- list container -->
-   						<div class="results" style="border:0;" id="company-list-ctr">
-          					<table width="100%" cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse;">
-            					<thead>
-              						<tr>
-                						<th scope="col">Company Name</th>
-                						<th scope="col">Count</th>
-                						<th scope="col">Sticker Name </th>                
-                						<th scope="col">Action</th>                      
-              						</tr>
-            					</thead>
-            					<tbody id="company-list-tbody"></tbody>
-          					</table>
-  						</div>
- 						<form dojoType="dijit.form.Form" name="company-create-form" id="company-create-form">  	
-  							<div class="create-ctr" id="company-create-ctr">
-  								<h2>Create Your Company</h2>
-								<div class="formQuestion">
-									<span>Company Details *</span>
-								</div>
-							<div class="formAnswer">			
-								<label class="firstLabel" >Company Name *</label>
-								<input type="text" name="companyName" id="companyName_create"   class="medium" required=false
-										dojoType="dijit.form.TextBox" ucfirst="true" / >
-								<br>
-								<label class="firstLabel" >Number Of Vehicles *</label>
-								<input type="text" name="count" id="count"   class="medium"
-									dojoType="dijit.form.TextBox" class="medium"
-									ucfirst="true">
-								<br>
-							</div>
-  	         				<input type="button" class="save" title="Save" value="Save" onclick="formValidate('company')" />
-          	 				<input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('company')" />
-          	 				<input type="reset" id="company-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
-  	  					</div>
- 					</form>
-				</div>
 
-<!-- ******************************************* End Create Company******************************************* -->
-  									<!-- ************ VEHICLE START **********************-->
+<div id="home-tab">  			
+  <!--banner-->
+  <div id="banner">
+  
+  <span class="left_aro">
+  </span>
+  <span class="middle">
+ <img src="images/banner_img.png"/>
+  </span>
+  
+ <span class="right_aro">
+  </span>
+  </div>
+ <!--banner close-->
+ 
+ <!--content-->
+ <div id="content">
+<!-- con_left-->
+ <div id="con_left">
+ <img src="images/multy_img.png"/>
+  </div>
+  <!-- con_left close-->
+  
+ <!-- con_right-->
+  <div id="con_right">
+  
+  <span class="re_d_text">
+  5 Reasons Why We Should Report
+  </ span>
+  <!--link_rect-->
+   <div id="link_rect">
+   
+   <ul>
+   <li>Because At least 14 People Die Every Hour due to Rash Driving in India.</li>
+   <li> Because Traffic causes atleast 10 Billion USD Loss to India Every Year</li>
+   <li>Because Every Single Life is Presious!</li>
+   <li>Because We Deserve Better and Happier Lives</li>
+   <li>Because Every Reported Violation get Maximum Visibility.</li>
+   </ul>
+   
+ </div>  
+  <!--link_rect-->
+  <!--box_text-->
+   <div id="box_text">
+   <p class="p_headert">
+   It Begins With Us</p>
+<p class="p_text">Traffic has not only costed us Money, Time and Happiness, it is also costing millions of Life.
+It's High time we get our act together and clean this up.
+   </p>
+   
+   <p class="p_text">
+ We Request you to Please Provide your valuable Feedback. We Promise that your Feedback will be considered.
+ 
+  </p>
+   </div> 
+  <!--box_text close-->
+ </div>
+  <!-- con_right close-->
+  </div>
+<!--content close-->
+ </div>
+ <div  id="vehiclePost-tab">
+ 
+ <div id="t_r_rect">
+    <!--tr_text-->
+     <div id="new_link">
+     Traffic Violations 
+     </div>
+      
+     <div id="new_nevi">
+      <ul>
+      <li> Home </li>
+      <li class="aroo"> &gt;&gt; </li>
+      <li> Traffic Violations </li>
+      </ul>
+      </div>     
+      <!--tr_text close-->
+    
+  </div>
+    
+ 
+ <div id="content">
+      <!--c_left---> 
+     <div id="c_left">
+      
+      
+      
+      
+      <!--************** COMMENTING THIS PART *******************
+        
+        <a href="#"><span class="add_buttan">
+       <p>Add post</p>
+        </span></a>                
+          
+         <form name="input" actin="html_form_action.asp" method="get">  
+         <div id="opiton">
+         
+       <label>&nbsp;</label>
+    <div class="drop" style="width: 293px; ">&nbsp;</div><select style="opacity: 0; z-index: 999; position: relative; bottom: 0px; margin-left: 0px; width: 298px; ">
+<option>&nbsp;</option>
+<option>Option 2</option>
+<option>Option 3</option>
+</select>
+         
+       </div>  
+           
+          </form> 
+      
+     <a href="#"><span class="cp_battan">
+     <p>Search Company</p>
+         </span></a>
+      
+      
+      ****************** TILL HERE ****************-->
+      
+      
+      
+      
+         
+			<div id="vehiclePost-table">         
+         	</div>
+         
+         
+                         <!--CUT HERE-->
+         
+<!--CUT END HERE--> 
 
-					<table id="vehicle-table" width="100%"  cellspacing="0" cellpadding="2" border="0" style="border:none;">
-            			<thead>
-              				<tr> 
-              					<td style="border:none; width:40%;">
-
-
-  									<!-- ************ VEHICLE POST **********************-->
-  									<div class="g-unit" id="vehiclePost-tab">
-  										<div>
-  											<button data-dojo-type="dijit.form.Button" 
-  												type="button" onclick="showTab('addPost')" >Add Post</button>
-  										</div>		
-  										<!-- search container -->
-   										<div class="gsc-search-box" id="vehiclePost-search-ctr">
-
-   											<form dojoType="dijit.form.Form" id="vehiclePost-search-form">
-												<input type="text" name="companyName2" id="companyName2" class="medium"
-													dojoType="dijit.form.FilteringSelect" store="companyMemoryStore" class="medium"
-													ucfirst="true" invalidMessage="Invalid Selection"/>
-												<input type="button" value="Search Company" onclick="searchBody(0,1,0)" class="gsc-search-button" />	
-												<br>
-   	   	    									<br></br>	   	    				
-    										</form>
-   										</div>
-   										<!-- list container -->
-   										<div class="results" style="border:0;" id="vehiclePost-list-ctr">
-          									<table id="vehiclePost-table" width="100%" cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse;">
-            									<thead>
-              										<tr>
-              											<th scope="col">Post Details</th>
-              										</tr>
-            									</thead>
-            									<tbody id="vehiclePost-list-tbody"></tbody>
-          									</table>
-  										</div>
-  									</div>
-									<!-- ******************************************* End vehiclePost ******************************************* -->  					
-
-
-              					</td>
-								<td class ="vehicle-table-vsplitter" id="vehicle-table-vsplitter">
-								</td>
-              					<td style="border:none;left:15%;">
-									<!-- ******************************************* Start Vehicle Post SHOW (vehiclePost-show-ctr) ******************************************* -->
-  									<div class="create-ctr" id="vehiclePost-show-ctr">
-  										<button id="fb-post">Post to FaceBook()</button>
-  										<div id="vehiclePost-details-ctr">
-  										</div>	
-									</div>
-<!-- ******************************************* END Vehicle Post SHOW (vehiclePost-show-ctr) ******************************************* -->
-
-<!-- ******************************************* Start Vehicle Post Create (vehiclePost-create-ctr) ******************* -->
-
-  									<div class="create-ctr" id="vehiclePost-create-ctr">
-  										<form dojoType="dijit.form.Form" name="vehiclePost-create-form" id="vehiclePost-create-form"
-											onsubmit="alert('Submitting')" enctype="multipart/form-data">
-											<div class="formQuestion">
-												<span>Vehicle Details</span>
-											</div>
+	
+     
+     </div> 
+     <!--c_left close--->
+     
+     <!--r_right-->
+    <div id="r_right">
+    
+    <!-- r_top-->
+     <div id="r_top">
+     <!--<img src="images/aro_img.png"/>-->
+     <ul>
+     <li>Vehicle Details</li>
+     </ul>
+     </div>
+    <!-- r_top close-->
+    
+    <!--option_next-->
+    <div id="option_nextrect">
+    
+    <!--rect_option-->
 											<div class="formAnswer">	
-												<label class="firstLabel" >Unique Name *</label>
+												<label class="firstLabel" >Sticker Name *</label>
 												<input type="text" name="uniqueId" id="uniqueId"   class="medium" required=false
 													dojoType="dijit.form.FilteringSelect" store="stickerMemoryStore" ucfirst="true" invalidMessage="Invalid Selection !!"/ >
 												<br>
 												<label class="firstLabel" for="dob">  Date Of Incident *</label>
 												<input id="date" name="date" dojoType="dijit.form.DateTextBox" required=true/>
 											</div>
-											<div class="formQuestion">
-												<label for="description">Incident Details *</label>
-											</div>
-<!--			********** ISSUE working on IE, NEED TO FIX ***************
-											<div data-dojo-type="dijit.Editor" required=true 
-												id="errorDetails" name="errorDetails" data-dojo-props="onChange:function(){console.log('editor1 onChange handler: ' + arguments[0])},
-												plugins:['cut','copy','paste','|','bold','italic','underline','strikethrough','subscript','superscript','|', 'indent', 'outdent', 'justifyLeft', 'justifyCenter', 'justifyRight']">
-											</div>
- -->
+
+    <!--rect_option close-->
+    
+    </div>
+    <!--option_next close-->
+    
+    <!-- r_top-->
+     <div id="r_top">
+     <!--<img src="images/aro_img.png"/>-->
+     <ul>
+     <li>Feedback Details *</li>
+     </ul>
+     </div>
+    <!-- r_top close-->
+   <!-- option_nextrect-->
+    <div id="option_nextrect">
+    
+    <form name="input" actin="html_form_action.asp" method="get"> 
+    
+    <div id="text_area">
+    <label>&nbsp;</label>
  											<div data-dojo-type="dijit.form.Textarea" required=true id="errorDetails" name="errorDetails" rows="3">
 											</div>
- 
+    </div>  
+    </form>
+    
+    
+    </div>
+    <!-- option_nextrect close-->
+    
+    <div id="r_top">
+     
+     <ul>
+     <li>Incident Image </li>
+     </ul>
+     </div>
+    <!-- r_top close-->
+    
+     <div id="option_nextrect">
+     
 											<div class="formAnswer">
 												<input name="blobkey" id="blobkey" type="hidden" value="blobkey"></input>
 											</div>
-											<div class="formQuestion">
-												<label for="description">Incident Image</label>
-											</div>
-
-											<div id="main" class="formAnswer">
+     										<div id="main" class="formAnswer">
 												<form method="post" enctype="multipart/form-data"  action="/dispatch">
 													<input type="file" name="myFile" id="myFile" accept="image/*" />
 													<button type="submit" id="btn">Upload Files!</button>
@@ -300,196 +409,226 @@
 											</div>
   											<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   											<script src="script/cupload.js"></script>
-  											<div class="formAnswer">
-												<label style="color:red;"> * Mandatory Fields </label>
-											</div>
-  										<div>
- <!--
-										<fieldset id="position" class="dijitInline">
-											<input type="checkBox" name="facebook" id="facebook" value="true" dojoType="dijit.form.CheckBox" /> <label for="facebook">Post To Facebook</label>
-										</fieldset>
--->	
-										<input type="button" class="save" title="Save" value="Save" onclick="formValidate('vehiclePost')" />
-          								<input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('vehiclePost')" />
-    									<input type="reset" id="vehiclePost-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>    			
-									</div>
-								</form>
-	  						</div>
-<!-- ******************************************* End Vehicle Post Create ******************************************* -->              				
-
-
-              			</td>                     
-              		</tr>
-       			</thead>
-	        </table>
-					  					
-  <!-- ******************************************* user ******************************************* -->
-  
-  					<div class="g-unit" id="user-tab">
-  					</div>
-  
-  					<div class="main-txt-dv" id="about-tab">
-						<div style="text-decoration:underline;text-align:center;">
-							<strong>It Begins With Us</strong><br /><br />
-						</div>
-						<div style=text-align:left;">
-						
-							Hello Friends, <br /> </span>
-							We are a Group of People who love India. We have a strong believe that if we join our hands, we can make India a better Country to Live. 
-							<br />
-							We request you to join our hands in cleaning up the Traffic System. If we all come together, we can achieve this.
-							<br />
-							We Promise you that every violation that you report here will get maximum visibility and will be acted upon.					
-							<br />
-							So come and join our Hands and Help Spread the word. <br />
-							<br />
-						</div>
-						<strong>Save The Future Team </strong><br />
-  					</div>
-  
-  					<div class="main-txt-dv" id="contact-tab">
-  						<div style="text-decoration:underline;text-align:center;">
-							<strong>Save The Future Team</strong><br /> <br />
-						</div>
-						<div style=text-align:left;">
-							For any Comments and Suggestions, You Can Reach Us <a href="mailto:admin@savethefuture.in"> Here </a>
-						</div>	
-  					</div>
-  
-  
-  
-  
-  <!-- ******************************************* userVehicleSubscription ******************************************* -->
-  <div class="g-unit" id="userVehicleSubscription-tab">
-  <!-- search container -->
-   	<div class="gsc-search-box" id="userVehicleSubscription-search-ctr">
-   	<!-- section title -->
-   	<h2>Vehicle Registration</h2>
-   	<form name="userVehicleSubscription-search-form" id="userVehicleSubscription-search-form">
-
-   	 		<!--
-   	 		<input type="text" name="q" id="q" class="gsc-input"/> 
-	   	    <input type="button" value="Search" onclick="search('userVehicleSubscription')" class="gsc-search-button" />
-	   	    -->
-            <input type="button" value="Add Vehicle Subscription" onclick="add('userVehicleSubscription')" class="gsc-search-button" />
-            <input type="reset" id="userVehicleSubscription-search-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
-    </form>
-   	</div>
-   <!-- list container -->
-   	<div class="results" style="border:0;" id="userVehicleSubscription-list-ctr">
-          <table width="100%" cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse;">
-            <thead>
-              <tr>
-                <th scope="col">Vehicle Registration Number</th>
-                <th scope="col">Action</th>                      
-              </tr>
-            </thead>
-            <tbody id="userVehicleSubscription-list-tbody"></tbody>
-          </table>
-  	</div>
-  	<div class="create-ctr" id="userVehicleSubscription-create-ctr">
-	  	<h2>Create userVehicleSubscription</h2>
-	  	<form name="userVehicleSubscription-create-form" id="userVehicleSubscription-create-form">
-  			<table width="200" cellspacing="0" cellpadding="0">
-	  		   <tbody>
-	                <tr>
-	                  <td>Vehicle Registration Number</td>
-	                  <td><input type="text" style="width: 185px;" autocomplete="off" class="gsc-input" maxlength="2048" name="vehicleRegNumber" id="vehicleRegNumber" /></td>
-	                </tr>
-		            <tr>
-          			  <td>&nbsp;</td>
-          			  <td> 
-          				<input type="button" class="save" title="Save" value="Save" onclick="formValidate('userVehicleSubscription')" />
-          				<input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('userVehicleSubscription')" />
-          				<input type="reset" id="userVehicleSubscription-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
-         			  </td>
-        			</tr>
-	  			  </tbody>
-		        </table>
-		    </form>
-		</div>
-  </div>
-  
-  
-  <!-- ******************************************* userCompanySubscription ******************************************* -->
-  <div class="g-unit" id="userCompanySubscription-tab">
-  <!-- search container -->
-   	<div class="gsc-search-box" id="userCompanySubscription-search-ctr">
-   		<!-- section title -->
-   		<h2>Company Subscription</h2>
-   		<form name="userCompanySubscription-search-form" id="userCompanySubscription-search-form">
-   	<!--
-   	 		<input type="text" name="q" id="q" class="gsc-input"/> 
-	   	    <input type="button" value="Search" onclick="search('userCompanySubscription')" class="gsc-search-button" />
-	 -->
-            <input type="button" value="Add Company Subscription" onclick="add('userCompanySubscription')" class="gsc-search-button" />
-            <input type="reset" id="userCompanySubscription-search-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
-    	</form>
-   	</div>
-   	<!-- list container -->
-   	<div class="results" style="border:0;" id="userCompanySubscription-list-ctr">
-          <table width="100%" cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse;">
-            <thead>
-              <tr>
-                <th scope="col">Company Name</th>
-                <th scope="col">Action</th>                      
-              </tr>
-            </thead>
-            <tbody id="userCompanySubscription-list-tbody"></tbody>
-          </table>
-  	</div>
-  	<div class="create-ctr" id="userCompanySubscription-create-ctr">
-		<form dojoType="dijit.form.Form" name="userCompanySubscription-create-form" id="userCompanySubscription-create-form"
-			onsubmit="alert('Submitting')">
-		  	<h2>Create userCompanySubscription</h2>
-			<div class="formQuestion">
-				<span>Subscribe to Company Which have Registered With Us</span>
-			</div>
-			<div class="formAnswer">			
-				<label class="firstLabel" >Company Name </label>
-				<input type="text" name="companyNameSubscribe" id="companyNameSubscribe"   class="medium" required=false
-					dojoType="dijit.form.FilteringSelect" store="companyMemoryStore" ucfirst="true" invalidMessage="Please Select a Valid Company!!"/ >
-				<br>			
-				<input type="button" class="save" title="Save" value="Save" onclick="formValidate('userCompanySubscription')" />
-          		<input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('userCompanySubscription')" />
-          		<input type="reset" id="userCompanySubscription-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>
-          	</div>	
-	  	</form>
-	</div>
-  </div>
-  </div>
-  </div>  
-  
-			<div id="leftCol" class="centerPanel" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region: 'left', splitter: false" style="width: 30%; ">
-   				<!-- LEFT SECTION -->
- 			</div>
-		</div>
+  	    
+    <!--file_save-->
+    <div id="file_save">
+    
+   <span class="man">
+   * Mandatory Fields
+   
+    <div id="battans">
+     
+    <a onclick="formValidate('vehiclePost')"><span class="s_battan"> <p>Save</p> </span></a>
+     <a onclick="cancel('vehiclePost')"><span class="s_battan"> <p>Cancel</p> </span></a>
+       </div>
+   
+   
+   </span>
+   
+    
+   
+    
+      </div>
+	  <!--file_save close-->
 	  
 	  
+     
+    
+    
+    
+    </div>
+   <!--r_right close-->  
+      
+      
+    
+    
+    </div>
+    
+<!--content close-->
+     </div>
+     
+     
+     
+     
+     
+     
+     
+     
+    
+ </div>
+ </div>
+ <!--main_wrapper close-->
+ 
+ <!--footer_secand-->
+ <div id="footer_secand">
+ 
+ <div id="foot_dotted">
+ </div>
+ 
+ 
+    <!--footer_main-->
+   <div id="footer_main">
+   
+   <!--foot_first-->
+   <div id="foot_first">
+   
+   <span class="f_title">
+   <p> Pages</p>
+   <img src="images/h_line.png"/>
+   </span>
+   
+   <span class="foot_links" id="tabs_bottom">
+    <ul>
+ 		<li><a id="home" href="#home">Home</a></li>
+ 		<li><a id="vehiclePost" href="#vehiclePost">Traffic Violations</a></li>
+ 		<li><a id="user" href="#user">User Settings</a></li>
+ 		<li><a id="contact" href="#contact">Contact Us</a></li>
+ 		<li> <a id="about" href="#about">About Us</a></li>
+ 		 <li><a id="contact" href="#register">Register</a></li>
+ 		
+    </ul>
+   
+   </span>
+   
+   </div>
+   <!--foot_first close-->
+    <!--footer_secand close-->
+ 
+ 
+   <!--foot_secand-->
+   <div id="foot_secand">
+   
+   <span class="f_title">
+   <p> Latest Posts</p>
+   <img src="images/h_line.png"/>
+   </span>
+   
+   <span class="lorem_text">
+   
+   <p>
+   Lorem ipsum dolor sit amet 
+consectetur adipisicing elit.
+05 Aug 2012
+   </p> 
+     <p class="ff_text">
+   Lorem ipsum dolor sit amet 
+consectetur adipisicing elit.
+05 Aug 2012
+   </p> 
+   </span>
+  
+  </div>
+   <!--foot_close close-->
+   
+   <!--foot_three-->
+   <div id="foot_three">
+   <span class="f_title">
+   <p> Sticker </p>
+   <img src="images/f_img.png"/>
+   </span>
+   
+  <!--img_links-->
+  <div id="img_links">
+  
+  <ul>
+  <li><a href="#"><img src="images/sticker.png"/></a></li>
+  </ul>
+  
+  </div> 
+  <!--img_links close-->
+  
+   </div>
+   <!--foot_three close-->
+   
+   
+   <!--foot_fore-->
+   <div id="foot_three">
+   <span class="f_title">
+   <p> Latest News</p>
+   <img src="images/f_img.png"/>
+   </span>
+   
+   <!--main_fore-->
+   <div id="main_fore">
+   
+   <!--box_aug-->
+   <span class="box_aug">
+   
+   <span class="aug_rect">
+   </span>
+   <span class="aug_rect">
+   </span>
+   <span class="aug_rect">
+   </span>
+   
+   </span>
+   <!--box_aug close-->
+   
+   <span class="aug_right">
+    <p>
+   Lorem ipsum dolor sit amet 
+consectetur adipis
+   </p> 
+   <p>
+   Lorem ipsum dolor sit amet 
+consectetur adipis
+   </p>
+   <p>
+   Lorem ipsum dolor sit amet 
+consectetur adipis
+   </p>
+   </span>
+   </div>
+   <!--main_fore close-->
+   </div>
+   <!--foot_fore close-->
+   
+  </div>
+   <!--footer_main-->
+   
+</div>
+<!--footer_secand close-->
+
+   <!--bottam-->
+   <div id="bottam">
+   
+   <!--bottam_main-->
+   <div id="bottam_main">
+   
+    <span class="copy_text">
+    COPYRIGHT © 2012
+    </span>
+    
+    
+ <div id="logo_b"> <a href="#home"><img src="images/logo_b.png"/></a>
+ 
+ </div>
+    
+    
+   
+   </div>
+   <!--bottam_main close-->
+   
+   </div>
+   <!--bottam close-->
+ 
+ 
+ 
+ </div>
+<!--wrapper close-->
+
 <script type="text/javascript">
-require(["dojo/parser","dijit/layout/BorderContainer", "dijit/layout/ContentPane","dojox/grid/DataGrid","dojox/data/JsonRestStore","dojo/ready"], 
-function( parser, borderContainer,contentPane,dataGrid,jsonRestStore,ready){
-     ready(function(){
-        // This won't run until the DOM has loaded, the parser has run, and other modules like dijit/hccss
-		// have also run.
-           //init();
-     });
-});
-
 
 require(["dojo/dom", "dojo/dom-style","dojo/store/Memory","dijit/form/FilteringSelect",
 	"dijit/form/ComboBox", "dijit/form/Textarea", "dijit/form/TextBox","dijit/form/Form", 
-	"dijit/form/CheckBox","dijit/form/DateTextBox","dijit/form/Button","dojo/domReady!"], 
+	"dijit/form/CheckBox","dijit/form/DateTextBox","dijit/form/Button","dojo/parser","dojo/ready","dojo/domReady!"], 
 	function(dom1,style1,Memory) {
 	var cityStore = new Memory();
 	var companyStore = new Memory();
 	var vehicleStore = new Memory();
 	var stickerStore = new Memory();
 init(dom1,style1,cityStore,companyStore,vehicleStore,stickerStore);
-});  
-window.fbAsyncInit = function() {
-    // Additional initialization code here
-};
+});
   (function(d, s, id) {
 	  var js, fjs = d.getElementsByTagName(s)[0];
 	  if (d.getElementById(id)) return;
@@ -498,6 +637,6 @@ window.fbAsyncInit = function() {
 	  fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
 
-
 </script>
-	</body>
+</body>
+</html>

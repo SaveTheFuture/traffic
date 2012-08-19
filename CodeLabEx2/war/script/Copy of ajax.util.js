@@ -15,10 +15,10 @@ var ENTITY_ID = "globalSubscriptionId";
 var ENTITY_VEHICLE_POST='vehiclePost';
 var ENTITY_VEHICLE='vehicle';
 var ENTITY_CITY='district';
-//var APP_ID = '161629197295331'; //savethefuture
-var APP_ID = '400798689964910'; //localhost
-//var APP_URL = 'www.savethefuture.in';
-var APP_URL = 'http://localhost:8888';
+var APP_ID = '161629197295331'; //savethefuture
+//var APP_ID = '400798689964910'; //localhost
+var APP_URL = 'www.savethefuture.in';
+//var APP_URL = 'http://localhost:8888';
 
 var userIsConnected = 0;
 var name = '';
@@ -60,11 +60,7 @@ var init = function(dom1,style1,cityStore,companyStore,vehicleStore,stickerStore
 	$('#tabs a').click(function(event) {
 		showTab(event.currentTarget.id);
 	});
-	$('#tabs_bottom a').click(function(event) {
-		showTab(event.currentTarget.id);
-	});
-	
-/*
+
 	document.getElementById('fb-logout').onclick = function() {
 		fbLogout();
 	};
@@ -72,11 +68,11 @@ var init = function(dom1,style1,cityStore,companyStore,vehicleStore,stickerStore
 	document.getElementById('fb-post').onclick = function() {
 		fbPost();
 	};
-*/
+
 	style.set(dom.byId('loader'),"display","none");
 }
 
-
+		
 
 var fbInit = function() {
     $('#' + "fb-logout").hide();
@@ -112,7 +108,7 @@ var fbUserDetail = function(response) {
 	$('#' + "error-show-message").hide();
 	
     if (response.authResponse) {
-        FB.api('/me', function(response) { 
+        FB.api('/me', function(response) {  
         	fbImage = 'https://graph.facebook.com/' + response.id + '/picture';
             name = response.name;
             email = response.email;
@@ -125,7 +121,7 @@ var fbUserDetail = function(response) {
             }
             userPosted =1;
             checkUserLoggedInStatus();
-    		//populateList(ENTITY_USER,null);
+    		populateList(ENTITY_USER,null);
             addUserLogin();
 			showMessage("Welcome "+ name, ENTITY_USER);
 			if(showAddPost == 1) {
@@ -153,31 +149,32 @@ var showTab = function(entity) {
 	$('#leftCol').hide();	
 	$('#vehicle-table').show();
 	$('#vehicle-table-vsplitter').hide();	
-	$('#vehiclePost-tab').hide();	
-
+	
 
 	if(ENTITY_ABOUT == entity) {		
 		$('#about-tab').show();	
+		$('#vehicle-table').hide();	
 		return;
 	}
 
+	
 	if(ENTITY_CONTACT == entity) {
 		$('#contact-tab').show();	
+		$('#vehicle-table').hide();	
 		return;
 	}
 
 	
 	if(ENTITY_VEHICLE_POST != entity) {
-		$('#vehiclePost-tab').hide();	
+		showAddPost = 0;
 	}
 
 	if((ENTITY_USER == entity) || (ENTITY_VEHICLE_POST == entity)) {
-		//populateMemoryStore(ENTITY_COMPANY);
+		populateMemoryStore(ENTITY_COMPANY);
 	}
 
 	if((ENTITY_ADD_POST == entity) || (ENTITY_VEHICLE_POST == entity)) {
 		$('#vehicle-table-vsplitter').show();
-		populateMemoryStore(ENTITY_COMPANY_GLOBAL_SUBSCRIPTION_ID);
 	}
 	if(ENTITY_ADD_POST == entity) {
 		$('#home-tab').hide();
@@ -219,15 +216,15 @@ var showTab = function(entity) {
 	}
 */
 	if ((entity == ENTITY_VEHICLE_POST)){
-		//showTab(ENTITY_ADD_POST);
+		showTab(ENTITY_ADD_POST);
 	}
 
 	if((entity != ENTITY_VEHICLE_POST)){
-		//$('#' + 'home-tab-left').show();
+		$('#' + 'home-tab-left').show();
 		//style.set(dom.byId('leftCol'),"display","none");
 	}
 	else {
-		//$('#' + 'home-tab-left').hide();		
+		$('#' + 'home-tab-left').hide();		
 	}
 }
 
@@ -455,7 +452,6 @@ var search = function(entity) {
 
 
 var showErrMessage = function(message){
-	alert(message);
 		$('#'+'error-show-message').show().html('<p><b>'+message+'</b></p>');
 
 }
@@ -469,12 +465,9 @@ var showMessage = function(message, entity){
 
 	if((1==userIsConnected) && (entity == ENTITY_USER)) {
 		$('#'+entity+'-show-message').show().html('<p><b>'+message+'</b></p><img src='+fbImage+'></img>');
-		$('#'+'user_name').show().html('<b>'+message+'</b>');
 	}
 	else
 		$('#'+entity+'-show-message').show().html('<p><b>'+message+'</b></p>');
-		$('#'+'user_name').show().html('<b>'+message+'</b>');
-
 
 }
 
@@ -484,7 +477,7 @@ var formValidate = function(entity){
 	var key;
 	var formEleList = $('form#'+entity+'-create-form').serializeArray();
 
-	//key=formEleList[0].value;
+	key=formEleList[0].value;
 	switch(entity){
 		case ENTITY_COMPANY:
 			if(formEleList[0].value == ""  || formEleList[1].value == "") {
@@ -616,17 +609,15 @@ var save = function(entity) {
 		data[i++] = new param("userId", userId + provider);
 	}
 	if (entity == ENTITY_VEHICLE_POST) {
-/*		if ("true" == dijit.byId('facebook').getValue()) {
+		if ("true" == dijit.byId('facebook').getValue()) {
 			// POST to facebook
 			fbPost();
 		}
-*/		
 		data[i++] = new param("errorDetails", dijit.byId('errorDetails')
 				.getValue().replace("<br _moz_editor_bogus_node=\"TRUE\" />",
 						""));
 		data[i++] = new param("userId", userId + provider);	
 	}
-	alert("saving");
 	// setting action as PUT
 	data[data.length] = new param('action', 'PUT');
 	// making the ajax call
@@ -767,6 +758,7 @@ var edit = function(entity, id){
 //function called when user clicks on the cancel button
 var cancel = function(entity) {
 	$('#' + "error-show-message").hide();
+
 	//$('.message').hide();
 	//hiding the create container in the tab
 	showHideCreate(entity, false);
