@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Save The Future </title>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dijit/themes/claro/claro.css" media="screen">
+
+    <script language="javascript" src='script/ajax.util.js'></script>
+  <script language="javascript" src='script/jquery-1.6.min.js'></script>
+    <script src="//connect.facebook.net/en_US/all.js"></script>
+	<!-- load dojo and provide config via data attribute -->
+	<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js"
+			data-dojo-config="async:true, parseOnLoad: true">
+	</script>
+  
+</head>
+<body class="claro">
+ 
+    									<div class="create-ctr" id="vehiclePost-create-ctr">
+  										<form dojoType="dijit.form.Form" name="vehiclePost-create-form" id="vehiclePost-create-form"
+											onsubmit="alert('Submitting')" enctype="multipart/form-data">
+											<div class="formQuestion">
+												<span>Vehicle Details</span>
+											</div>
+											<div class="formAnswer">	
+												<label class="firstLabel" >Unique Name *</label>
+												<input type="text" name="uniqueId" id="uniqueId"   class="medium" required=false
+													dojoType="dijit.form.FilteringSelect" store="stickerMemoryStore" ucfirst="true" invalidMessage="Invalid Selection !!"/ >
+												<br>
+												<label class="firstLabel" for="dob">  Date Of Incident *</label>
+												<input id="date" name="date" dojoType="dijit.form.DateTextBox" required=true/>
+											</div>
+											<div class="formQuestion">
+												<label for="description">Incident Details *</label>
+											</div>
+ 											<div data-dojo-type="dijit.form.Textarea" required=true id="errorDetails" name="errorDetails" rows="3">
+											</div>
+ 
+											<div class="formAnswer">
+												<input name="blobkey" id="blobkey" type="hidden" value="blobkey"></input>
+											</div>
+											<div class="formQuestion">
+												<label for="description">Incident Image</label>
+											</div>
+
+											<div id="main" class="formAnswer">
+												<form method="post" enctype="multipart/form-data"  action="/dispatch">
+													<input type="file" name="myFile" id="myFile" accept="image/*" />
+													<button type="submit" id="btn">Upload Files!</button>
+												</form>
+											</div>
+  											<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  											<script src="script/cupload.js"></script>
+  											<div class="formAnswer">
+												<label style="color:red;"> * Mandatory Fields </label>
+											</div>
+  										<div>
+										<input type="button" class="save" title="Save" value="Save" onclick="formValidate('vehiclePost')" />
+          								<input type="button" class="cancel" title="Cancel" value="Cancel" onclick="cancel('vehiclePost')" />
+    									<input type="reset" id="vehiclePost-reset" class="cancel" title="Reset" value="Reset" style="visibility: hidden"/>    			
+									</div>
+								</form>
+	  						</div>
+  
+<script type="text/javascript">
+
+require(["dojo/dom", "dojo/dom-style","dojo/store/Memory","dijit/form/FilteringSelect",
+	"dijit/form/ComboBox", "dijit/form/Textarea", "dijit/form/TextBox","dijit/form/Form", 
+	"dijit/form/CheckBox","dijit/form/DateTextBox","dijit/form/Button","dojo/parser","dojo/ready","dojo/domReady!"], 
+	function(dom1,style1,Memory) {
+	var cityStore = new Memory();
+	var companyStore = new Memory();
+	var vehicleStore = new Memory();
+	var stickerStore = new Memory();
+	alert("done");
+//init(dom1,style1,cityStore,companyStore,vehicleStore,stickerStore);
+});
+</script>
+</body>
+</html>
